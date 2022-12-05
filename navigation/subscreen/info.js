@@ -1,15 +1,22 @@
-import { Text, View, StyleSheet, Image, ScrollView } from 'react-native';
+import { Text, View, StyleSheet, Image, ScrollView,Alert } from 'react-native';
 import {useState} from 'react';
-import { NativeBaseProvider, Button,HStack, VStack, Heading, Stack ,Center, Box, Pressable, AspectRatio} from "native-base";
+import { NativeBaseProvider, Button,HStack, VStack, Heading, Stack ,Center, Box,Container,AspectRatio} from "native-base";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import {faPencil} from "@fortawesome/free-solid-svg-icons";
+import {faPencil,faTrash} from "@fortawesome/free-solid-svg-icons";
 
 const Stacker = createNativeStackNavigator();
 
-function edit(){
-  
+const PopupWindow = () => {
+  Alert.alert(
+    "Attention!",
+    "Are you sure to delete this information? The action is inversible!",
+    [
+      {text: "Cancel", onPress:() => console.log("No need to delete account")},
+      {text: "Yes", onPress:() => console.log("Delete his account")}
+    ]
+  )
 }
 export default function InfoScreen({navigation}){
   const [data,setData] = useState();
@@ -47,13 +54,22 @@ export default function InfoScreen({navigation}){
         <Stack p="4" space={3}>
           <Stack space={2}>
             <VStack style={style.row}>
-              <HStack space={40}>
+              <HStack space={30}>
             <Heading size="md" ml="-1">
               The Garden City
             </Heading>
-            <FontAwesomeIcon icon={faPencil}/>
+             <Button>
+              <FontAwesomeIcon icon={faPencil}/>
+            </Button>
+              <Button onPress={() => PopupWindow()}>
+              <FontAwesomeIcon icon={faTrash} />
+               </Button>
             </HStack>
             </VStack>
+            <Container>
+              <Heading>
+                Description
+              </Heading>
             <Text fontSize="xs" _light={{
             color: "violet.500"
           }} _dark={{
@@ -61,11 +77,24 @@ export default function InfoScreen({navigation}){
           }} fontWeight="500" ml="-0.5" mt="-1">
               The Silicon Valley of India.
             </Text>
+            </Container>
           </Stack>
+          <Container>
+              <Heading>
+                Description
+              </Heading>
           <Text fontWeight="400">
             Bengaluru (also called Bangalore) is the center of India's high-tech
             industry. The city is also known for its parks and nightlife.
           </Text>
+          </Container>
+          <Container>
+              <Heading>
+                Media
+              </Heading>
+
+
+              </Container>
           <HStack alignItems="center" space={4} justifyContent="space-between">
             <HStack alignItems="center">
               <Text color="coolGray.600" _dark={{
@@ -84,16 +113,7 @@ export default function InfoScreen({navigation}){
   </NativeBaseProvider>
   )
 }
-function HomeScreenInsideNavigation(){
-  return(
-  <NavigationContainer independent={true}>
-      <Stacker.Navigator initialRouteName="Home" screenOptions={{headerShown: false}} >
-        <Stacker.Screen name="Home" component={HomeScreen} />
-        <Stacker.Screen name="Info" component={InfoScreen}/>
-        
-      </Stacker.Navigator>
-    </NavigationContainer>)
-}
+
 
 const style = StyleSheet.create({
   titletext:{

@@ -17,7 +17,7 @@ const validateSchema = yup.object().shape({
 });
 
 export default function CommentScreen({navigation,props}){
-  const [data,setData] = useState([
+  const [categorydata,setCategoryData] = useState([
     {name:'test1'},
     {name:'test2'}
   ])
@@ -32,8 +32,24 @@ export default function CommentScreen({navigation,props}){
       onSubmit={values => console.log(values)}>
          {({values,handleReset,handleSubmit}) => (
               <VStack width="90%" mx="3" maxW="300px">
+                <FormControl>
+                  <FormControl.Label _text={{bold: true}}> Restaurant Name </FormControl.Label>
+                    <Select selectedValue={service} minWidth="200" accessibilityLabel="Choose Service" placeholder="Choose Service" _selectedItem={{
+        bg: "teal.600",
+        endIcon: <CheckIcon size="5" />
+      }} mt={1} onValueChange={itemValue => setService(itemValue)}>
+        {categorydata.map(x => {
+            return (
+              <Select.Item
+                label={x.name}
+                value={x.name}
+              />
+            );
+          })}
+        </Select>
+                  </FormControl>
                 <FormControl isRequired>
-                <FormControl.Label _text={{bold: true}}> Name </FormControl.Label>
+                <FormControl.Label _text={{bold: true}}>Dish Name </FormControl.Label>
                 <Input placeholder="John"  value={values.DishName}/>
                 <FormControl.HelperText _text={{ fontSize: 'xs'}}> Name should contain atleast 3 character. </FormControl.HelperText>
                 </FormControl>
@@ -45,12 +61,12 @@ export default function CommentScreen({navigation,props}){
                   </FormControl>   
 
                   <FormControl>
-                  <FormControl.Label _text={{bold: true}}> Category </FormControl.Label>
+                  <FormControl.Label _text={{bold: true}}> Disk Category </FormControl.Label>
                     <Select selectedValue={service} minWidth="200" accessibilityLabel="Choose Service" placeholder="Choose Service" _selectedItem={{
         bg: "teal.600",
         endIcon: <CheckIcon size="5" />
       }} mt={1} onValueChange={itemValue => setService(itemValue)}>
-        {data.map(x => {
+        {categorydata.map(x => {
             return (
               <Select.Item
                 label={x.name}

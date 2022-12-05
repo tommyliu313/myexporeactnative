@@ -11,18 +11,16 @@ import MapScreen from '../function/map';
 
 export default function LocationScreen() {
   
-  return (
+  return (<ScrollView>
     <View style={styles.container}>
-    <ScrollView>
+    
       <Text style={styles.paragraph}>
       Locate your position: 
       </Text>
   
         <MapScreen />
-
-
-      </ScrollView>
-    </View>
+      
+    </View></ScrollView>
   );
 }
 
