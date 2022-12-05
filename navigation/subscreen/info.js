@@ -8,7 +8,7 @@ import {faAdd,faChevronRight} from "@fortawesome/free-solid-svg-icons";
 
 const Stacker = createNativeStackNavigator();
 
-function InfoScreen({navigation}){
+export default function InfoScreen({navigation}){
   const [data,setData] = useState();
   return (
     <NativeBaseProvider>
