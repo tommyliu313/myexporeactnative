@@ -14,7 +14,7 @@ export default function MapScreen() {
           longitudeDelta: 0.0421});
   {/* Set Status whether there is boolean option */}
   
-  const [,pinlocation]= useState('');
+  {/*const [,pinlocation]= useState('');*/}
    useEffect(() => {
      (async () => {
        {/*get permission */}
@@ -34,9 +34,7 @@ export default function MapScreen() {
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421
          }}
-         showsMyLocationButton="true"
-         toolbarEnabled = "true"
-        onRegionChangeComplete = {(location) => setLocation(location)}
+        
       >
       
       

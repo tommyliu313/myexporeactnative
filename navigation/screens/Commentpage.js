@@ -8,8 +8,6 @@ import Constants from 'expo-constants';
 import * as React from 'react';
 import {useFonts} from 'expo-font';
 import {useState} from 'react';
-import Stars from 'react-native-stars';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const validateSchema = yup.object().shape({
   Comment: yup.string()
@@ -78,15 +76,7 @@ export default function CommentScreen({navigation,props}){
                   </FormControl>
                   <FormControl>
                   <View>
-  <Stars
-    default={2.5}
-    count={5}
-    half={true}
-    starSize={2e20}
-    fullStar={<Icon name={'star'} style={styles.myStarStyle}/>}
-    emptyStar={<Icon name={'star-outline'} style={[styles.myStarStyle, styles.myEmptyStarStyle]}/>}
-    halfStar={<Icon name={'star-half'} style={styles.myStarStyle}/>}
-  />
+
 </View>
 </FormControl>
                 <Button colorScheme="danger" onPress={handleReset}>Reset</Button>
@@ -103,16 +93,7 @@ export default function CommentScreen({navigation,props}){
 }
 
 const styles = StyleSheet.create({
-   myStarStyle: {
-    color: 'yellow',
-    backgroundColor: 'transparent',
-    textShadowColor: 'black',
-    textShadowOffset: {width: 1, height: 1},
-    textShadowRadius: 2,
-  },
-  myEmptyStarStyle: {
-    color: 'white',
-  },
+
   container: {
     flex: 1,
     justifyContent: 'center',

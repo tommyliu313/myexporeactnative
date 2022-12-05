@@ -38,7 +38,7 @@ export default function VideoScreen() {
     return (
       <View style={styles.container}>
         <Text style={{ textAlign: 'center'}}>We need your permission to open the camera</Text>
-        <Button onPress={requestCameraPermission, requestMicrophonePermission} title="grant permission" />
+        <Button onPress={requestCameraPermission} title="grant permission" />
       </View>
     );
   }

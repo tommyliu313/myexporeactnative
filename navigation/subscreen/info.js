@@ -4,10 +4,13 @@ import { NativeBaseProvider, Button,HStack, VStack, Heading, Stack ,Center, Box,
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import {faAdd,faChevronRight} from "@fortawesome/free-solid-svg-icons";
+import {faPencil} from "@fortawesome/free-solid-svg-icons";
 
 const Stacker = createNativeStackNavigator();
 
+function edit(){
+  
+}
 export default function InfoScreen({navigation}){
   const [data,setData] = useState();
   return (
@@ -16,7 +19,7 @@ export default function InfoScreen({navigation}){
       <VStack>
 
       <Box alignItems="center">
-      <Box maxW="80" rounded="lg" overflow="hidden" borderColor="coolGray.200" borderWidth="1" _dark={{
+      <Box maxW="100%" rounded="lg" overflow="hidden" borderColor="coolGray.200" borderWidth="1" _dark={{
       borderColor: "coolGray.600",
       backgroundColor: "gray.700"
     }} _web={{
@@ -43,9 +46,14 @@ export default function InfoScreen({navigation}){
         </Box>
         <Stack p="4" space={3}>
           <Stack space={2}>
+            <VStack style={style.row}>
+              <HStack space={40}>
             <Heading size="md" ml="-1">
               The Garden City
             </Heading>
+            <FontAwesomeIcon icon={faPencil}/>
+            </HStack>
+            </VStack>
             <Text fontSize="xs" _light={{
             color: "violet.500"
           }} _dark={{
