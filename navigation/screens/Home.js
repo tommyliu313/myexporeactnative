@@ -5,8 +5,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import {faAdd,faChevronRight} from "@fortawesome/free-solid-svg-icons";
-import {InfoScreen} from '../subscreen/info';
-import {AddCategoryScreen} from '../subscreen/categoryadd';
+import InfoScreen from '../subscreen/info';
+import AddCategoryScreen from '../subscreen/categoryadd';
 
 const Stacker = createNativeStackNavigator();
 
@@ -65,16 +65,16 @@ function HomeScreen({navigation}){
 
       </View>
        <ScrollView horizontal>
-    <Image style={style.circle} source={require('../../download.jfif')}/>
-    <Image style={style.circle} source={require('../../download.jfif')}/>
+    <Image style={style.circle} source={require('../../download.png')}/>
+    <Image style={style.circle} source={require('../../download.png')}/>
 
-    <Image style={style.circle} source={require('../../download.jfif')}/>
+    <Image style={style.circle} source={require('../../download.png')}/>
  
-    <Image style={style.circle} source={require('../../download.jfif')}/>
+    <Image style={style.circle} source={require('../../download.png')}/>
     
-    <Image style={style.circle} source={require('../../download.jfif')}/>
+    <Image style={style.circle} source={require('../../download.png')}/>
     
-    <Image style={style.circle} source={require('../../download.jfif')}/>
+    <Image style={style.circle} source={require('../../download.png')}/>
     </ScrollView>
       
       <View>
