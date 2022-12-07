@@ -28,7 +28,8 @@ export default function CommentScreen({navigation,props}){
     <ScrollView>
     <NativeBaseProvider>
     <Formik
-      initialValues={{Restaurant: '' ,DishName: '',Comment:'',Rating: ''}}
+      initialValues={{Restaurant: '' ,DishName: '',Comment:'',Rating: '',Category:'', Price:''}}
+      validationSchema={validateSchema}
       onSubmit={values => console.log(values)}>
          {({values,handleReset,handleSubmit}) => (
               <VStack width="90%" mx="3" maxW="300px">
@@ -50,15 +51,33 @@ export default function CommentScreen({navigation,props}){
                   </FormControl>
                 <FormControl isRequired>
                 <FormControl.Label _text={{bold: true}}>Dish Name </FormControl.Label>
-                <Input placeholder="John"  value={values.DishName}/>
-                <FormControl.HelperText _text={{ fontSize: 'xs'}}> Name should contain atleast 3 character. </FormControl.HelperText>
+                <Input placeholder="John" onChange={(e)=>{
+                  console.log(
+                    "onChange::",
+                    e.currentTarget.name,
+                    e.currentTarget.value
+                  );
+                  values.DishName = e.currentTarget.value;
+                }}
+                
+                />
+                <FormControl.HelperText _text={{ fontSize: 'xs'}}> Name should contain at least 3 character. </FormControl.HelperText>
                 </FormControl>
 
-                <FormControl>   
+               <FormControl>   
                 <FormControl.Label _text={{bold: true}}> Comment </FormControl.Label>
 
-                <TextArea placeholder="John" value={values.Comment} />
-                  </FormControl>   
+                <TextArea placeholder="John" onChange={(e)=>{
+                  console.log(
+                    "onChange::",
+                    e.currentTarget.name,
+                    e.currentTarget.value
+                  );
+                  values.Comment = e.currentTarget.value;
+                }}
+                
+                />
+                  </FormControl>  
 
                   <FormControl>
                   <FormControl.Label _text={{bold: true}}> Disk Category </FormControl.Label>
@@ -84,12 +103,21 @@ export default function CommentScreen({navigation,props}){
       md: "285"
     }}>
         <InputLeftAddon children={"HK$"} />
-        <Input w={{
+          <Input w={{
         base: "70%",
         md: "100%"
-      }} placeholder="nativebase" />
+      }} placeholder="eg: 25.50"
+      onChange={(e)=>{
+                  console.log(
+                    "onChange::",
+                    e.currentTarget.name,
+                    e.currentTarget.value
+                  );
+                  values.Price = e.currentTarget.value;
+                }}
+       />
       </InputGroup>
-                  </FormControl>
+                 </FormControl>
                   <FormControl>
                   <View>
 
