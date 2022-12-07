@@ -8,5 +8,5 @@
 
 ## Command
 ### npm install -g expo-cli
-### npm install -force
+### npm install --force
 ### npm audit fix --force
