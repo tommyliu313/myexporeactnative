@@ -13,7 +13,16 @@ const validateSchema = yup.object().shape({
   Comment: yup.string()
   .min(6,'Comment should be more than 6 characters.')
   .max(256,'Comment should be less than 256 characters.')
-  .required('Comment should be set between 6 to 256 characters')
+  .required('Comment should be set between 6 to 256 characters'),
+  Price: yup.number()
+    .required("Price should not be empty")
+    .test(
+    'is-decimal',
+    'invalid decimal',
+    value => (value + "").match(/^\d*\.{1}\d*$/)
+    ),
+  DishName: yup.string().required(),
+  Restaurant: yup.string().required()
 });
 
 export default function CommentScreen({navigation,props}){
