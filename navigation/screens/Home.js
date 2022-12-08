@@ -1,6 +1,6 @@
 import { Text, View, StyleSheet, Image, ScrollView } from 'react-native';
 import {useState} from 'react';
-import { NativeBaseProvider, Button, VStack, Heading, Stack ,Box, Pressable} from "native-base";
+import { NativeBaseProvider, Button, VStack, Heading, Stack ,Center, Box, Pressable} from "native-base";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
@@ -9,7 +9,6 @@ import InfoScreen from '../subscreen/info';
 import AddCategoryScreen from '../subscreen/categoryadd';
 
 const Stacker = createNativeStackNavigator();
-
 
 function HomeScreen({navigation}){
   const [source, setSource] = useState([
@@ -80,14 +79,7 @@ function HomeScreen({navigation}){
       
       <View>
       <Text style={style.titletext}>Restaurant</Text>
-      <Pressable>
-        <Box size="12" bg="primary.400" rounded="sm" _text={{
-          color: "warmGray.50",
-          fontWeight: "medium"
-        }} shadow={"3"}>
-        <FontAwesomeIcon icon={faAdd} style={{fontSize: 32}} /> Add
-        </Box>
-        </Pressable>
+
       
 
         {source.map( (element) => {

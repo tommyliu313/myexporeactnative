@@ -1,11 +1,11 @@
 import React ,{ useCallback } from "react";
-import { ImageBackground, StyleSheet, Text, View } from "react-native";
+import { ImageBackground, StyleSheet, Text, View, BackHandler } from "react-native";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
-import {NativeBaseProvider,Button, VStack, Stack} from 'native-base';
+import {NativeBaseProvider,Button, VStack} from 'native-base';
 import MainContainer from'./navigation/MainContainer';
 
-const Stacker = createNativeStackNavigator();
+const Stack = createNativeStackNavigator();
 const asset = [require('./assets/restaurant.jpg')];
 
 
@@ -24,10 +24,9 @@ const asset = [require('./assets/restaurant.jpg')];
       <View style={{flex:0.1}}>
      <NativeBaseProvider>
       <VStack space={4} aligmItem="center">
-     <Button colorScheme="success" onPress={() => navigation.navigate('MainContainer')}> Welcome</Button>
-    <Button colorScheme="danger" onPress={() => BackHandler.exitApp()}> Exit</Button>
+      <Button colorScheme="success" onPress={() => navigation.navigate('MainContainer')}> Welcome</Button>
+      <Button colorScheme="danger" onPress={() => BackHandler.exitApp()}> Exit</Button>
     </VStack>
-    
     </NativeBaseProvider>
     </View>
         
@@ -38,10 +37,10 @@ const asset = [require('./assets/restaurant.jpg')];
 function MainNavigation(){
   return(
   <NavigationContainer independent={true}>
-      <Stacker.Navigator initialRouteName="Main" screenOptions={{headerShown: false}} >
-        <Stacker.Screen name="Main" component={MainScreen} />
-        <Stacker.Screen name="MainContainer" component={MainContainer}/>
-      </Stacker.Navigator>
+      <Stack.Navigator initialRouteName="Main" screenOptions={{headerShown: false}} >
+        <Stack.Screen name="Main" component={MainScreen} />
+        <Stack.Screen name="MainContainer" component={MainContainer}/>
+      </Stack.Navigator>
     </NavigationContainer>)
 }
 
