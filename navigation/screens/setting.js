@@ -1,6 +1,6 @@
 import { Text, View, StyleSheet, ScrollView, Image, Alert, BackHandler} from 'react-native';
 import React from "react";
-import {NativeBaseProvider,Button} from 'native-base';
+import {NativeBaseProvider,Button, VStack} from 'native-base';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as Sharing from 'expo-sharing';
@@ -22,6 +22,7 @@ function SettingScreen({navigation}){
   return(
   <View style={style.main}>
   <NativeBaseProvider>
+    <VStack space={3}>
   <Text style={style.titletext}>Irreversible Action</Text>
   <Button onPress={() => PopupWindow()}> Delete Account </Button>
 
@@ -32,7 +33,9 @@ function SettingScreen({navigation}){
    <Button onPress={() => navigation.navigate('Check History')}>Check History</Button>
    
    <Button onPress={() => setShare()}> Sharing the App Out</Button>
+   </VStack>
     </NativeBaseProvider>
+  
   </View>
   
   )
