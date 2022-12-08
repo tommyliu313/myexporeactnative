@@ -117,7 +117,7 @@ function InfoScreen({navigation}){
 export default function RestaurantNavigation(){
   return(
   <NavigationContainer independent={true}>
-      <Stacker.Navigator initialRouteName="InfoScreen">
+      <Stacker.Navigator initialRouteName="InfoScreen" screenOptions={{headerShown: false}}>
         <Stacker.Screen name="InfoScreen" component={InfoScreen} />
         <Stacker.Screen name="CategoryAdd" component={AddCategoryScreen} />
       </Stacker.Navigator>

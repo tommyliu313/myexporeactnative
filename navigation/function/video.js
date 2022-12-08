@@ -90,6 +90,7 @@ let takingphoto = () => {
     };
     let finishrecording = () => {
       setStartRecord(false);
+      
 
     };
   let videosave = () => {
