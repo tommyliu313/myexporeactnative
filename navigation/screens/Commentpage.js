@@ -1,12 +1,14 @@
 import { Text, View, StyleSheet, TextInput, ScrollView } from 'react-native';
 import * as yup from "yup";
-import { Formik, Form} from "formik";
+import { Formik, ErrorMessage} from "formik";
 //import {} from 'react-native-stars';
 import {NativeBaseProvider,Button, VStack, FormControl, Input, TextArea,Stack, Select, CheckIcon, InputGroup, InputLeftAddon} from 'native-base';
 import Constants from 'expo-constants';
 import * as React from 'react';
+import StarRating from 'react-native-star-rating-widget';
 import {useFonts} from 'expo-font';
 import {useState} from 'react';
+
 
 const validateSchema = yup.object().shape({
   Comment: yup.string()
@@ -30,7 +32,9 @@ export default function CommentScreen({navigation,props}){
     {name:'test1'},
     {name:'test2'}
   ])
-  const [service,setService] = React.useState("");
+  const [DishCategory,setDishCategory] = useState("");
+  const [RestaurantName,setRestaurantName] = useState("");
+  const [rating, setRating] = useState(0);
 
  
   return (
@@ -39,15 +43,15 @@ export default function CommentScreen({navigation,props}){
     <Formik
       initialValues={{Restaurant: '' ,DishName: '',Comment:'',Rating: '',Category:'', Price:''}}
       validationSchema={validateSchema}
-      onSubmit={values => console.log(values)}>
+      onSubmit={(values) => console.log(values)}>
          {({errors,values,handleReset,handleSubmit, touched}) => (
                 <VStack width="90%" mx="3" maxW="300px">
                 
                 <FormControl>
                   <FormControl.Label _text={{bold: true}}> Restaurant Name </FormControl.Label>
-                    <Select selectedValue={service} minWidth="200" accessibilityLabel="Choose Restaurant" placeholder="Choose Restaurant"
+                    <Select selectedValue={RestaurantName} minWidth="200" accessibilityLabel="Choose Restaurant" placeholder="Choose Restaurant"
                     _selectedItem={{bg: "teal.600", endIcon: <CheckIcon size="5" />}} mt={1} 
-                    onValueChange={itemValue => setService(itemValue)}>
+                    onValueChange={itemValue => setRestaurantName(itemValue)}>
                       {categorydata.map(x => {
                          return (
                            <Select.Item
@@ -59,7 +63,7 @@ export default function CommentScreen({navigation,props}){
                     </Select>
                     {errors.Restaurant && touched.Restaurant ? (<div>{errors.Restaurant}</div>) : null}
                   </FormControl>
-                  
+
                 <FormControl isRequired>
                 <FormControl.Label _text={{bold: true}}>Dish Name </FormControl.Label>
                 <Input placeholder="Name of the Dish" onChange={(e)=>{
@@ -92,10 +96,10 @@ export default function CommentScreen({navigation,props}){
 
                   <FormControl isRequired>
                   <FormControl.Label _text={{bold: true}}> Dish Category </FormControl.Label>
-                    <Select selectedValue={service} minWidth="200" accessibilityLabel="Choose Service" placeholder="Choose Service" _selectedItem={{
+                    <Select selectedValue={DishCategory} minWidth="200" accessibilityLabel="Choose Service" placeholder="Choose Service" _selectedItem={{
         bg: "teal.600",
         endIcon: <CheckIcon size="5" />
-      }} mt={1} onValueChange={itemValue => setService(itemValue)}>
+      }} mt={1} onValueChange={itemValue => setDishCategory(itemValue)}>
         {categorydata.map(x => {
             return (
               <Select.Item
@@ -126,10 +130,21 @@ export default function CommentScreen({navigation,props}){
        />
       </InputGroup>
                  </FormControl>
-                  <FormControl>
-                  <View>
+                 <FormControl isRequired>
+                  <FormControl.Label _text={{bold: true}}> Rating(Maximum 5 Stars) </FormControl.Label>
+                  
+                  <StarRating
+                    rating={rating}
+                    onChange={(e)=>{setRating,
+                    console.log(
+                    "onChange::",
+                    e.currentTarget.name,
+                    e.currentTarget.value
+                  );
+                  values.Rating = e.currentTarget.value;
+                }}
+      />
 
-</View>
 </FormControl>
                 <Button colorScheme="danger" onPress={handleReset}>Reset</Button>
                 <Button colorScheme="success" onPress={handleSubmit}> Submit</Button>

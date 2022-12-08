@@ -3,7 +3,7 @@ import { Text, View, StyleSheet, Image, Dimensions} from 'react-native';
 import MapView from 'react-native-maps';
 import Marker from 'react-native-maps';
 import {useState, useEffect} from 'react';
-import {Button, NativeBaseProvider} from 'native-base';
+import {Button, NativeBaseProvider, Alert} from 'native-base';
 
 
 export default function MapScreen() {
@@ -18,7 +18,14 @@ export default function MapScreen() {
    useEffect(() => {
      (async () => {
        {/*get permission */}
-      let {status} = await Location.requestForegroundPermissionsAsync();
+      let {getcurrentstatus} = await Location.requestForegroundPermissionsAsync();
+      if (getcurrentstatus !== 'granted') {
+        return(
+          <Alert status="error">
+              
+          </Alert>
+        )
+      }
       {/* */}
       setLocation(location);
   })

@@ -1,7 +1,4 @@
 import * as React from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { Text, View, StyleSheet, Button } from 'react-native';
-import Constants from 'expo-constants';
 import {initializeApp} from 'firebase/app';
 import {getFirestore, setDoc, doc} from 'firebase/firestore';
 
@@ -24,28 +21,5 @@ export function firebase() {
     name:"asdsadcsc",
     age: 127
   });
-}
+}}
   
-  return (
-    <View style={styles.container}>
-      <Button title="Send Data" onPress={sendDataToFirebase}> Send Data</Button>
-    <StatusBar style="auto" />
-    </View>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    paddingTop: Constants.statusBarHeight,
-    backgroundColor: '#ecf0f1',
-    padding: 8,
-  },
-  paragraph: {
-    margin: 24,
-    fontSize: 18,
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-});

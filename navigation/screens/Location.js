@@ -2,7 +2,6 @@ import * as React from 'react';
 import { Text, View, StyleSheet, Button, ScrollView } from 'react-native';
 import Constants from 'expo-constants';
 import * as Location from 'expo-location';
-import  {Map} from "react-native-maps";
 // You can import from local files
 import { useEffect, useState} from 'react';
 import MapScreen from '../function/map';

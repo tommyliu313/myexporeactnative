@@ -1,9 +1,8 @@
-import SQLite from 'react-native-sqlite-storage';
+import { doc, updateDoc, deleteField } from "firebase/firestore";
 
-const database = SQLite.openDatabase({
-    name: '',
-    location: ''
-  },
-  () => {},
-  error => {console.log(error)}
-);
+const cityRef = doc(db, 'cities', 'BJ');
+
+// Remove the 'capital' field from the document
+await updateDoc(cityRef, {
+    capital: deleteField()
+});

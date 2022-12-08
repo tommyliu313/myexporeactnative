@@ -45,7 +45,7 @@ export default function RestaurantAddScreen({navigation,props}){
               <VStack width="90%" mx="3" maxW="300px">
                 <FormControl>
                   <FormControl.Label _text={{bold: true}}> Restaurant Name </FormControl.Label>
-                    <Select selectedValue={service} minWidth="200" accessibilityLabel="Choose Service" placeholder="Choose Restaurant"
+                    <Select selectedValue={service} minWidth="200" accessibilityLabel="Write down the restaurant name" placeholder="Restaurant Name"
                     _selectedItem={{bg: "teal.600", endIcon: <CheckIcon size="5" />}} mt={1} onValueChange={itemValue => setService(itemValue)}>
                       {categorydata.map(x => {
                          return (
