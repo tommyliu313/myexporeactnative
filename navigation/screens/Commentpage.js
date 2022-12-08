@@ -6,9 +6,8 @@ import {NativeBaseProvider,Button, VStack, FormControl, Input, TextArea,Stack, S
 import Constants from 'expo-constants';
 import * as React from 'react';
 import StarRating from 'react-native-star-rating-widget';
-import {useFonts} from 'expo-font';
 import {useState} from 'react';
-
+import firebaseconfiguration from "../../data/database/firebaseconfig";
 
 const validateSchema = yup.object().shape({
   Comment: yup.string()
@@ -142,6 +141,23 @@ export default function CommentScreen({navigation,props}){
                     e.currentTarget.value
                   );
                   values.Rating = e.currentTarget.value;
+                }}
+      />
+
+</FormControl>
+
+<FormControl isRequired>
+                  <FormControl.Label _text={{bold: true}}> Media </FormControl.Label>
+                  
+                  <StarRating
+                    rating={rating}
+                    onChange={(e)=>{setRating,
+                    console.log(
+                    "onChange::",
+                    e.currentTarget.name,
+                    e.currentTarget.value
+                  );
+                  values.Media = e.currentTarget.value;
                 }}
       />
 

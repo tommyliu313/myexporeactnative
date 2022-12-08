@@ -5,7 +5,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import {faPencil,faTrash} from "@fortawesome/free-solid-svg-icons";
+import * as React from 'react';
 
+import AddCategoryScreen from './categoryadd';
 const Stacker = createNativeStackNavigator();
 
 const PopupWindow = () => {
@@ -18,7 +20,7 @@ const PopupWindow = () => {
     ]
   )
 }
-export default function InfoScreen({navigation}){
+function InfoScreen({navigation}){
   const [data,setData] = useState();
   return (
     <NativeBaseProvider>
@@ -68,14 +70,14 @@ export default function InfoScreen({navigation}){
             </VStack>
             <Container>
               <Heading>
-                Description
+                Address
               </Heading>
             <Text fontSize="xs" _light={{
             color: "violet.500"
           }} _dark={{
             color: "violet.400"
           }} fontWeight="500" ml="-0.5" mt="-1">
-              The Silicon Valley of India.
+            
             </Text>
             </Container>
           </Stack>
@@ -84,8 +86,7 @@ export default function InfoScreen({navigation}){
                 Description
               </Heading>
           <Text fontWeight="400">
-            Bengaluru (also called Bangalore) is the center of India's high-tech
-            industry. The city is also known for its parks and nightlife.
+            
           </Text>
           </Container>
           <Container>
@@ -113,7 +114,15 @@ export default function InfoScreen({navigation}){
   </NativeBaseProvider>
   )
 }
-
+export default function RestaurantNavigation(){
+  return(
+  <NavigationContainer independent={true}>
+      <Stacker.Navigator initialRouteName="InfoScreen">
+        <Stacker.Screen name="InfoScreen" component={InfoScreen} />
+        <Stacker.Screen name="CategoryAdd" component={AddCategoryScreen} />
+      </Stacker.Navigator>
+    </NavigationContainer>)
+}
 
 const style = StyleSheet.create({
   titletext:{

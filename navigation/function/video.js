@@ -2,24 +2,25 @@ import { Camera, CameraType } from 'expo-camera';
 //import {} from 'expo-av';
 import * as React from 'react';
 import { Text, View, StyleSheet, Image, Button, Dimensions, TouchableOpacity} from 'react-native';
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useRef} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import {faCamera, faCameraRotate, faRecordVinyl} from "@fortawesome/free-solid-svg-icons";
 import * as MediaLibrary from 'expo-media-library';
-import * as Sharing from 'expo-sharing';
+import {ShareAsync} from 'expo-sharing';
 
 
 export default function VideoScreen() {
 
   {/* Get Permission */}
   {/* Set Status whether there is boolean option */}
+  let cameraRef = useRef();
   const [type, setType] = useState(CameraType.back);
   const [CameraPermission, requestCameraPermission] = Camera.useCameraPermissions();
   const [MicrophonePermission, requestMicrophonePermission] = Camera.useMicrophonePermissions();
   const [MediaLibraryPermission, requestMediaLibraryPermission] = MediaLibrary.usePermissions();
-  const [isRecording,setIsRecording] = useState(false);
+  const [startRecording,setStartRecording] = useState(false);
   const [photopicture,setPhotopicture]= useState(false);
-  const [photovideo, setPhotovideo] = useState(false);
+  const [video, setVideo] = useState(false);
 
 
 {/*useEffect(() => {
@@ -63,35 +64,45 @@ export default function VideoScreen() {
   
 
   {/* Function Start */}
-  let videoquality
+ 
   function toggle() {
     setType(current => (current === CameraType.back ? CameraType.front : CameraType.back));
   }
-  if(photopicture){
-  function photosave(){
+let takingphoto = () => {
+  let photosave = () =>{
     
   }
 
-  function photoshare(){
+  let photoshare = () =>{
 
   }
-  function photodiscard(){
+  let photodiscard = () =>{
 
-  }}
+  }
+};
 
-  if(photovideo){
-  function videosave(){
+  let recordingvideo = () => {
+    
+    let videoquality = {
+      quality: "1080p",
+      maxDuration: 3600,
+      mute: false
+    };
+    let finishrecording = () => {
+      setStartRecord(false);
+
+    };
+  let videosave = () => {
     
   }
 
-  function videoshare(){
+  let videoshare = () => {
 
   }
-  function videodiscard(){
+  let videodiscard = () => {
 
   }}
   {/* Function End */}
-
   return (
     <View style={styles.container}>
       <Camera style={styles.camera} type={type}>
@@ -113,6 +124,7 @@ export default function VideoScreen() {
       </Camera>
     </View>
   );
+  
 }
 
 const styles = StyleSheet.create({

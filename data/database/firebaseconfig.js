@@ -2,7 +2,7 @@ import * as React from 'react';
 import {initializeApp} from 'firebase/app';
 import {getFirestore, setDoc, doc} from 'firebase/firestore';
 
-export function firebase() {
+export default function firebaseconfiguration() {
   const firebaseConfig = {
     apiKey: "AIzaSyDsUzH0I9ADm2SHrZ1TzyETmrEPB1M-jrk",
     authDomain: "sigma-cortex-315405.firebaseapp.com",

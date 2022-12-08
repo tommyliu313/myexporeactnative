@@ -5,6 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import {faAdd,faChevronRight} from "@fortawesome/free-solid-svg-icons";
+import * as React from 'react';
 import InfoScreen from '../subscreen/info';
 import AddCategoryScreen from '../subscreen/categoryadd';
 
@@ -21,27 +22,11 @@ function HomeScreen({navigation}){
       <View>
         <NativeBaseProvider>
   <VStack>
-        <View style={style.row}>
-        <Heading size="md">Photo</Heading>
-        <Stack direction="row">
-        <Pressable>
-        <Box size="12" bg="primary.400" rounded="sm" _text={{
-          color: "warmGray.50",
-          fontWeight: "medium"
-        }} shadow={"3"}>
-        <FontAwesomeIcon icon={faAdd} style={{fontSize: 32}} /> Add
-        </Box>
-        </Pressable>
-        <Pressable>
-        <Box size="12" bg="primary.400" rounded="sm" _text={{
-          color: "warmGray.50",
-          fontWeight: "medium"
-        }} shadow={"3"}>
-          See All
-           </Box>
-        </Pressable>
-        </Stack>
-        </View>        
+        <Text style={style.titletext}>Photo</Text>
+        <NativeBaseProvider>
+        <Button leftIcon={<FontAwesomeIcon icon={faAdd} style={{fontSize: 32}} />} colorScheme="success">   Add</Button>
+        <Button>See All</Button>
+        </NativeBaseProvider> 
 </VStack>
 </NativeBaseProvider>
   </View>
@@ -79,7 +64,10 @@ function HomeScreen({navigation}){
       
       <View>
       <Text style={style.titletext}>Restaurant</Text>
-
+      <NativeBaseProvider>
+        <Button leftIcon={<FontAwesomeIcon icon={faAdd} style={{fontSize: 32}} />} colorScheme="success">   Add</Button>
+        <Button>See All</Button>
+        </NativeBaseProvider>
       
 
         {source.map( (element) => {

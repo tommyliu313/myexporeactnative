@@ -1,4 +1,4 @@
-import React ,{ useCallback } from "react";
+import React ,{ useCallback} from "react";
 import { ImageBackground, StyleSheet, Text, View, BackHandler } from "react-native";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
@@ -7,8 +7,6 @@ import MainContainer from'./navigation/MainContainer';
 
 const Stack = createNativeStackNavigator();
 const asset = [require('./assets/restaurant.jpg')];
-
-
 
  function MainScreen({navigation}){
   

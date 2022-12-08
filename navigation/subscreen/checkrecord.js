@@ -5,6 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import {faAdd,faChevronRight} from "@fortawesome/free-solid-svg-icons";
+import * as React from 'react';
 
 const Stacker = createNativeStackNavigator();
 
