@@ -1,11 +1,12 @@
 import { Text, View, StyleSheet, Image, ScrollView } from 'react-native';
 import {useState} from 'react';
-import { NativeBaseProvider, Button,HStack, VStack,FormControl,Select, Heading, Stack ,Center, Box, Pressable, AspectRatio} from "native-base";
+import {NativeBaseProvider,Button, VStack, FormControl, Input, TextArea,Stack, Select, CheckIcon, InputGroup, InputLeftAddon} from 'native-base';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import {faAdd,faChevronRight} from "@fortawesome/free-solid-svg-icons";
 import {Formik} from 'formik';
+import * as React from 'react';
 import * as yup from "yup";
 
 const Stacker = createNativeStackNavigator();
@@ -14,112 +15,42 @@ const validateSchema = yup.object().shape({
 });
 
 function AddCategoryScreen({navigation}){
-  const [data,setData] = useState();
+
+  const [service,setService] = React.useState("");
+    const [categorydata,setCategoryData] = useState([
+    {name:'test1'},
+    {name:'test2'}
+  ])
   return (
     <NativeBaseProvider>
     <ScrollView>
     <Formik
-      initialValues={{Restaurant: '' ,DishName: '',Comment:'',Rating: '',Category:'', Price:''}}
+      initialValues={{Category:""}}
       validationSchema={validateSchema}
       onSubmit={values => console.log(values)}>
          {({errors,values,handleReset,handleSubmit}) => (
               <VStack width="90%" mx="3" maxW="300px">
-                <FormControl>
-                  <FormControl.Label _text={{bold: true}}> Restaurant Name </FormControl.Label>
-                    <Select selectedValue={service} minWidth="200" accessibilityLabel="Choose Service" placeholder="Choose Restaurant"
-                    _selectedItem={{bg: "teal.600", endIcon: <CheckIcon size="5" />}} mt={1} onValueChange={itemValue => setService(itemValue)}>
-                      {categorydata.map(x => {
-                         return (
-                           <Select.Item
-                             label={x.name}
-                             value={x.name}
-                           />
-                         );
-                       })}
-                    </Select>
-                  </FormControl>
                 <FormControl isRequired>
-                <FormControl.Label _text={{bold: true}}>Dish Name </FormControl.Label>
-                <Input placeholder="Name of the Dish" onChange={(e)=>{
+                <FormControl.Label _text={{bold: true}}> New Category </FormControl.Label>
+                <Input placeholder="New Category" onChange={(e)=>{
                   console.log(
                     "onChange::",
                     e.currentTarget.name,
                     e.currentTarget.value
                   );
-                  values.DishName = e.currentTarget.value;
+                  values.Category = e.currentTarget.value;
                 }}
                 
                 />
                 <FormControl.HelperText _text={{ fontSize: 'xs'}}> Name should contain at least 3 character. </FormControl.HelperText>
                 </FormControl>
-
-               <FormControl>   
-                <FormControl.Label _text={{bold: true}}> Comment </FormControl.Label>
-
-                <TextArea placeholder="Type your comment inside." onChange={(e)=>{
-                  console.log(
-                    "onChange::",
-                    e.currentTarget.name,
-                    e.currentTarget.value
-                  );
-                  values.Comment = e.currentTarget.value;
-                }}
-                
-                />
-                  </FormControl>  
-
-                  <FormControl>
-                  <FormControl.Label _text={{bold: true}}> Dish Category </FormControl.Label>
-                    <Select selectedValue={service} minWidth="200" accessibilityLabel="Choose Service" placeholder="Choose Service" _selectedItem={{
-        bg: "teal.600",
-        endIcon: <CheckIcon size="5" />
-      }} mt={1} onValueChange={itemValue => setService(itemValue)}>
-        {categorydata.map(x => {
-            return (
-              <Select.Item
-                label={x.name}
-                value={x.name}
-              />
-            );
-          })}
-        </Select>
-                  </FormControl>
-
-                  <FormControl>
-                  <FormControl.Label _text={{bold: true}}> Price </FormControl.Label>
-                  <InputGroup w={{
-      base: "70%",
-      md: "285"
-    }}>
-        <InputLeftAddon children={"HK$"} />
-          <Input w={{
-        base: "100%",
-        md: "100%"
-      }} placeholder="eg: 25.50"
-      onChange={(e)=>{
-                  console.log(
-                    "onChange::",
-                    e.currentTarget.name,
-                    e.currentTarget.value
-                  );
-                  values.Price = e.currentTarget.value;
-                }}
-       />
-      </InputGroup>
-                 </FormControl>
-                  <FormControl>
-                  <View>
-
-</View>
-</FormControl>
                 <Button colorScheme="danger" onPress={handleReset}>Reset</Button>
                 <Button colorScheme="success" onPress={handleSubmit}> Submit</Button>
-           
+                <Button onPress={() => navigation.goBack()}> Back </Button>
               </VStack>
               )}
     
     </Formik>
-      <Button onPress={() => navigation.goBack()}> Back </Button>
     </ScrollView>
   </NativeBaseProvider>
   )

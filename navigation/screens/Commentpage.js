@@ -41,7 +41,6 @@ export default function CommentScreen({navigation,props}){
       validationSchema={validateSchema}
       onSubmit={values => console.log(values)}>
          {({errors,values,handleReset,handleSubmit, touched}) => (
-              <Form>
                 <VStack width="90%" mx="3" maxW="300px">
                 
                 <FormControl>
@@ -60,6 +59,7 @@ export default function CommentScreen({navigation,props}){
                     </Select>
                     {errors.Restaurant && touched.Restaurant ? (<div>{errors.Restaurant}</div>) : null}
                   </FormControl>
+                  
                 <FormControl isRequired>
                 <FormControl.Label _text={{bold: true}}>Dish Name </FormControl.Label>
                 <Input placeholder="Name of the Dish" onChange={(e)=>{
@@ -72,7 +72,7 @@ export default function CommentScreen({navigation,props}){
                 }}
                 
                 />
-                {errors.DishName && touched.DishName ? (<div>{errors.DishName}</div>) : null}
+                {errors.DishName && touched.DishName ? (<Text>{errors.DishName}</Text>) : null}
                 </FormControl>
 
                <FormControl isRequired>   
@@ -134,7 +134,6 @@ export default function CommentScreen({navigation,props}){
                 <Button colorScheme="danger" onPress={handleReset}>Reset</Button>
                 <Button colorScheme="success" onPress={handleSubmit}> Submit</Button>
                </VStack>
-               </Form>
               
               )}
     

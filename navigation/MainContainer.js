@@ -16,12 +16,6 @@ import SettingScreen from './screens/setting';
 const Tab = createBottomTabNavigator();
 
 
-const ThemeColor ={
-  dark: false,
-  colors:{
-    default: '#1CEFC9'
-  }
-}
 function BottomTab() {
   return (
     <Tab.Navigator
@@ -88,7 +82,7 @@ function BottomTab() {
 
 export default function MainContainer() {
   return (
-    <NavigationContainer theme={ThemeColor}>
+    <NavigationContainer independent={true}>
       <BottomTab/>
     </NavigationContainer>
   );

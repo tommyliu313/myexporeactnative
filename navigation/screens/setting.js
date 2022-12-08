@@ -26,7 +26,7 @@ function SettingScreen({navigation}){
   <Button onPress={() => PopupWindow()}> Delete Account </Button>
 
   <Text style={style.titletext}>Screen Action</Text>
-  <Button onPress={() => BackHandler.exitApp()}>Exit</Button>
+  <Button colorScheme="danger" onPress={() => BackHandler.exitApp()}>Exit</Button>
 
   <Text style={style.titletext}>Options</Text>
    <Button onPress={() => navigation.navigate('Check History')}>Check History</Button>
