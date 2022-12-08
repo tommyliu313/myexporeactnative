@@ -56,9 +56,9 @@ export default function InfoScreen({navigation}){
             <VStack style={style.row}>
               <HStack space={30}>
             <Heading size="md" ml="-1">
-              The Garden City
+              Restaurant Name
             </Heading>
-             <Button>
+             <Button onPress={() => navigation.navigate('')}>
               <FontAwesomeIcon icon={faPencil}/>
             </Button>
               <Button onPress={() => PopupWindow()}>

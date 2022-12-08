@@ -1,9 +1,8 @@
 import { Text, View, StyleSheet, TextInput, ScrollView } from 'react-native';
 import * as yup from "yup";
-import { Formik} from "formik";
-import FormatText from '../../Component/form';
-import {} from 'react-native-stars';
-import {NativeBaseProvider,Button, VStack, FormControl, Input, TextArea, Stack, Select, CheckIcon, InputGroup, InputLeftAddon} from 'native-base';
+import { Formik, Form} from "formik";
+//import {} from 'react-native-stars';
+import {NativeBaseProvider,Button, VStack, FormControl, Input, TextArea,Stack, Select, CheckIcon, InputGroup, InputLeftAddon} from 'native-base';
 import Constants from 'expo-constants';
 import * as React from 'react';
 import {useFonts} from 'expo-font';
@@ -22,7 +21,8 @@ const validateSchema = yup.object().shape({
     value => (value + "").match(/^\d*\.{1}\d*$/)
     ),
   DishName: yup.string().required(),
-  Restaurant: yup.string().required()
+  Restaurant: yup.string().required(),
+  Rating: yup.string().required()
 });
 
 export default function CommentScreen({navigation,props}){
@@ -40,27 +40,29 @@ export default function CommentScreen({navigation,props}){
       initialValues={{Restaurant: '' ,DishName: '',Comment:'',Rating: '',Category:'', Price:''}}
       validationSchema={validateSchema}
       onSubmit={values => console.log(values)}>
-         {({values,handleReset,handleSubmit}) => (
-              <VStack width="90%" mx="3" maxW="300px">
+         {({errors,values,handleReset,handleSubmit, touched}) => (
+              <Form>
+                <VStack width="90%" mx="3" maxW="300px">
+                
                 <FormControl>
                   <FormControl.Label _text={{bold: true}}> Restaurant Name </FormControl.Label>
-                    <Select selectedValue={service} minWidth="200" accessibilityLabel="Choose Service" placeholder="Choose Service" _selectedItem={{
-        bg: "teal.600",
-        endIcon: <CheckIcon size="5" />
-      }} mt={1} onValueChange={itemValue => setService(itemValue)}>
-        {categorydata.map(x => {
-            return (
-              <Select.Item
-                label={x.name}
-                value={x.name}
-              />
-            );
-          })}
-        </Select>
+                    <Select selectedValue={service} minWidth="200" accessibilityLabel="Choose Restaurant" placeholder="Choose Restaurant"
+                    _selectedItem={{bg: "teal.600", endIcon: <CheckIcon size="5" />}} mt={1} 
+                    onValueChange={itemValue => setService(itemValue)}>
+                      {categorydata.map(x => {
+                         return (
+                           <Select.Item
+                             label={x.name}
+                             value={x.name}
+                           />
+                         );
+                       })}
+                    </Select>
+                    {errors.Restaurant && touched.Restaurant ? (<div>{errors.Restaurant}</div>) : null}
                   </FormControl>
                 <FormControl isRequired>
                 <FormControl.Label _text={{bold: true}}>Dish Name </FormControl.Label>
-                <Input placeholder="John" onChange={(e)=>{
+                <Input placeholder="Name of the Dish" onChange={(e)=>{
                   console.log(
                     "onChange::",
                     e.currentTarget.name,
@@ -70,13 +72,13 @@ export default function CommentScreen({navigation,props}){
                 }}
                 
                 />
-                <FormControl.HelperText _text={{ fontSize: 'xs'}}> Name should contain at least 3 character. </FormControl.HelperText>
+                {errors.DishName && touched.DishName ? (<div>{errors.DishName}</div>) : null}
                 </FormControl>
 
-               <FormControl>   
+               <FormControl isRequired>   
                 <FormControl.Label _text={{bold: true}}> Comment </FormControl.Label>
 
-                <TextArea placeholder="John" onChange={(e)=>{
+                <TextArea placeholder="Type your comment inside." onChange={(e)=>{
                   console.log(
                     "onChange::",
                     e.currentTarget.name,
@@ -88,8 +90,8 @@ export default function CommentScreen({navigation,props}){
                 />
                   </FormControl>  
 
-                  <FormControl>
-                  <FormControl.Label _text={{bold: true}}> Disk Category </FormControl.Label>
+                  <FormControl isRequired>
+                  <FormControl.Label _text={{bold: true}}> Dish Category </FormControl.Label>
                     <Select selectedValue={service} minWidth="200" accessibilityLabel="Choose Service" placeholder="Choose Service" _selectedItem={{
         bg: "teal.600",
         endIcon: <CheckIcon size="5" />
@@ -105,18 +107,15 @@ export default function CommentScreen({navigation,props}){
         </Select>
                   </FormControl>
 
-                  <FormControl>
+                  <FormControl isRequired>
                   <FormControl.Label _text={{bold: true}}> Price </FormControl.Label>
                   <InputGroup w={{
       base: "70%",
       md: "285"
     }}>
         <InputLeftAddon children={"HK$"} />
-          <Input w={{
-        base: "70%",
-        md: "100%"
-      }} placeholder="eg: 25.50"
-      onChange={(e)=>{
+          <Input w={{base: "100%",md: "100%"}} placeholder="eg: 25.50"
+            onChange={(e)=>{
                   console.log(
                     "onChange::",
                     e.currentTarget.name,
@@ -134,8 +133,9 @@ export default function CommentScreen({navigation,props}){
 </FormControl>
                 <Button colorScheme="danger" onPress={handleReset}>Reset</Button>
                 <Button colorScheme="success" onPress={handleSubmit}> Submit</Button>
-           
-              </VStack>
+               </VStack>
+               </Form>
+              
               )}
     
     </Formik>
