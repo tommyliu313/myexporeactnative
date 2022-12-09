@@ -37,6 +37,8 @@ export default function CommentScreen({navigation,props}){
   const [RestaurantName,setRestaurantName] = useState("");
   const [rating, setRating] = useState(0);
 
+  const [status, requestPermission] = ImagePicker.useCameraPermissions();
+
  
   return (
     <ScrollView>
