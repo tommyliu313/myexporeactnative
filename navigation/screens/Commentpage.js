@@ -1,13 +1,17 @@
-import { Text, View, StyleSheet, TextInput, ScrollView } from 'react-native';
+import { Text, View, StyleSheet, TextInput, ScrollView, FlatList, Image } from 'react-native';
 import * as yup from "yup";
 import { Formik, ErrorMessage} from "formik";
 //import {} from 'react-native-stars';
-import {NativeBaseProvider,Button, VStack, FormControl, Input, TextArea,Stack, Select, CheckIcon, InputGroup, InputLeftAddon} from 'native-base';
+import {NativeBaseProvider,Button, VStack, FormControl, Input, TextArea,
+  Stack, Select, CheckIcon, InputGroup, InputLeftAddon, useDisclose, Actionsheet} from 'native-base';
 import Constants from 'expo-constants';
 import * as React from 'react';
 import StarRating from 'react-native-star-rating-widget';
-import {useState} from 'react';
-import firebaseconfiguration from "../../data/database/firebaseconfig";
+import {useState,useEffect} from 'react';
+import {useFonts} from 'expo-font';
+import {sendDataToFirebase,deletedatafromfirebase} from "../../data/database/firebaseconfig";
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import {faUpload} from '@fortawesome/free-solid-svg-icons';
 import * as ImagePicker from 'expo-image-picker';
 
 const validateSchema = yup.object().shape({
@@ -27,31 +31,53 @@ const validateSchema = yup.object().shape({
   Rating: yup.string().required()
 });
 
+
 export default function CommentScreen({navigation,props}){
   const [image, setImage] = useState(null);
   const [categorydata,setCategoryData] = useState([
     {name:'test1'},
     {name:'test2'}
   ])
+  const {isOpen, onOpen, onClose} = useDisclose();
   const [DishCategory,setDishCategory] = useState("");
   const [RestaurantName,setRestaurantName] = useState("");
   const [rating, setRating] = useState(0);
-
   const [status, requestPermission] = ImagePicker.useCameraPermissions();
+  
+  const takephoto = async()=>{};
 
- 
+  const takevideo = async()=>{};
+
+  const pickphoto = async() => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [16, 9],
+      quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.canceled) {
+      setImage(result.assets[0].uri);
+    }
+
+  }
+  const ImageRendering = async({uri:image}) => {
+    <Image style={styles.circle} source={{ uri: image }} />
+  };
   return (
     <ScrollView>
     <NativeBaseProvider>
     <Formik
       initialValues={{Restaurant: '' ,DishName: '',Comment:'',Rating: '',Category:'', Price:''}}
       validationSchema={validateSchema}
-      onSubmit={(values) => console.log(values)}>
+      onSubmit={(values,formikActions) => [console.log(values), formikActions.setSubmitting(true)]}>
          {({errors,values,handleReset,handleSubmit, touched}) => (
                 <VStack width="90%" mx="3" maxW="300px">
                 
                 <FormControl>
-                  <FormControl.Label _text={{bold: true}}> Restaurant Name </FormControl.Label>
+                  <FormControl.Label _text={{bold: true, fontFamily:'josefinsans'}}> Restaurant Name </FormControl.Label>
                     <Select selectedValue={RestaurantName} minWidth="200" accessibilityLabel="Choose Restaurant" placeholder="Choose Restaurant"
                     _selectedItem={{bg: "teal.600", endIcon: <CheckIcon size="5" />}} mt={1} 
                     onValueChange={itemValue => setRestaurantName(itemValue)}>
@@ -150,11 +176,26 @@ export default function CommentScreen({navigation,props}){
 
 </FormControl>
 
-<FormControl isRequired>
+              <FormControl isRequired>
                   <FormControl.Label _text={{bold: true}}> Media </FormControl.Label>
+                    <Button leftIcon={<FontAwesomeIcon icon={faUpload} style={{fontSize: 32}} />} onPress={onOpen} colorScheme="primary">
+                        Upload Your Media Files
+                      </Button>
+                      <Actionsheet isOpen={isOpen} onClose={onClose}>
+                      <Actionsheet.Content>
+                      <Actionsheet.Item onPress={takephoto}>Picture</Actionsheet.Item>
+                      <Actionsheet.Item onPress={pickphoto}>Picture that exists in your media folder</Actionsheet.Item>
+                      <Actionsheet.Item onPress={takevideo}>Video</Actionsheet.Item>
+                      </Actionsheet.Content>
+                      </Actionsheet>
+                      <ScrollView horizontal>
+                      <FlatList
+                        renderItem={ImageRendering(image)}>
 
+                      </FlatList>
+                      </ScrollView>
 
-</FormControl>
+            </FormControl>
                 <Button colorScheme="danger" onPress={handleReset}>Reset</Button>
                 <Button colorScheme="success" onPress={handleSubmit}> Submit</Button>
                </VStack>
@@ -191,5 +232,12 @@ const styles = StyleSheet.create({
   },
   rating:{
     margin:20
+  },
+  circle:{
+    borderRadius: 20,
+    margin: 0,
+    padding: 30,
+    height: 'auto',
+    width: 'auto'
   }
 });

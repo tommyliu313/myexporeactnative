@@ -1,6 +1,6 @@
 import { Text, View, StyleSheet, TextInput, ScrollView } from 'react-native';
 import * as yup from "yup";
-import { Formik} from "formik";
+import { Formik, Field} from "formik";
 import FormatText from '../../Component/form';
 //import {} from 'react-native-stars';
 import {NativeBaseProvider,Button, VStack, FormControl, Input, TextArea, Stack, Select, CheckIcon, InputGroup, InputLeftAddon} from 'native-base';
@@ -43,94 +43,9 @@ export default function RestaurantAddScreen({navigation,props}){
       onSubmit={values => console.log(values)}>
          {({errors,values,handleReset,handleSubmit}) => (
               <VStack width="90%" mx="3" maxW="300px">
-                <FormControl is Required>
-                  <FormControl.Label _text={{bold: true}}> Restaurant Name </FormControl.Label>
-                    <Select selectedValue={service} minWidth="200" accessibilityLabel="Write down the restaurant name" placeholder="Restaurant Name"
-                    _selectedItem={{bg: "teal.600", endIcon: <CheckIcon size="5" />}} mt={1} onValueChange={itemValue => setService(itemValue)}>
-                      {categorydata.map(x => {
-                         return (
-                           <Select.Item
-                             label={x.name}
-                             value={x.name}
-                           />
-                         );
-                       })}
-                    </Select>
-                  </FormControl>
-                <FormControl isRequired>
-                <FormControl.Label _text={{bold: true}}>Dish Name </FormControl.Label>
-                <Input placeholder="Name of the Dish" onChange={(e)=>{
-                  console.log(
-                    "onChange::",
-                    e.currentTarget.name,
-                    e.currentTarget.value
-                  );
-                  values.DishName = e.currentTarget.value;
-                }}
-                
-                />
-                <FormControl.HelperText _text={{ fontSize: 'xs'}}> Name should contain at least 3 character. </FormControl.HelperText>
-                </FormControl>
+                <Field>
 
-               <FormControl>   
-                <FormControl.Label _text={{bold: true}}> Comment </FormControl.Label>
-
-                <TextArea placeholder="Type your comment inside." onChange={(e)=>{
-                  console.log(
-                    "onChange::",
-                    e.currentTarget.name,
-                    e.currentTarget.value
-                  );
-                  values.Comment = e.currentTarget.value;
-                }}
-                
-                />
-                  </FormControl>  
-
-                  <FormControl>
-                  <FormControl.Label _text={{bold: true}}> Dish Category </FormControl.Label>
-                    <Select selectedValue={service} minWidth="200" accessibilityLabel="Choose Service" placeholder="Choose Service" _selectedItem={{
-        bg: "teal.600",
-        endIcon: <CheckIcon size="5" />
-      }} mt={1} onValueChange={itemValue => setService(itemValue)}>
-        {categorydata.map(x => {
-            return (
-              <Select.Item
-                label={x.name}
-                value={x.name}
-              />
-            );
-          })}
-        </Select>
-                  </FormControl>
-
-                  <FormControl>
-                  <FormControl.Label _text={{bold: true}}> Price </FormControl.Label>
-                  <InputGroup w={{
-      base: "70%",
-      md: "285"
-    }}>
-        <InputLeftAddon children={"HK$"} />
-          <Input w={{
-        base: "100%",
-        md: "100%"
-      }} placeholder="eg: 25.50"
-      onChange={(e)=>{
-                  console.log(
-                    "onChange::",
-                    e.currentTarget.name,
-                    e.currentTarget.value
-                  );
-                  values.Price = e.currentTarget.value;
-                }}
-       />
-      </InputGroup>
-                 </FormControl>
-                  <FormControl>
-                  <View>
-
-</View>
-</FormControl>
+                </Field>
                 <Button colorScheme="danger" onPress={handleReset}>Reset</Button>
                 <Button colorScheme="success" onPress={handleSubmit}> Submit</Button>
            

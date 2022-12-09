@@ -44,109 +44,12 @@ export default function EditScreen({navigation,props}){
     <Formik
       initialValues={{Restaurant: '' ,DishName: '',Comment:'',Rating: '',Category:'', Price:''}}
       validationSchema={validateSchema}
-      onSubmit={(values) => console.log(values)}>
-         {({errors,values,handleReset,handleSubmit, touched}) => (
+      onSubmit={(values, formikAction) => [console.log(values),formikActions.setSubmitting(true)]}>
+         {props => (
                 <VStack width="90%" mx="3" maxW="300px">
-                
-                <FormControl>
-                  <FormControl.Label _text={{bold: true}}> Restaurant Name </FormControl.Label>
-                    <Select selectedValue={RestaurantName} minWidth="200" accessibilityLabel="Choose Restaurant" placeholder="Choose Restaurant"
-                    _selectedItem={{bg: "teal.600", endIcon: <CheckIcon size="5" />}} mt={1} 
-                    onValueChange={itemValue => setRestaurantName(itemValue)}>
-                      {categorydata.map(x => {
-                         return (
-                           <Select.Item
-                             label={x.name}
-                             value={x.name}
-                           />
-                         );
-                       })}
-                    </Select>
-                    {errors.Restaurant && touched.Restaurant ? (<div>{errors.Restaurant}</div>) : null}
-                  </FormControl>
-
-                <FormControl isRequired>
-                <FormControl.Label _text={{bold: true}}>Dish Name </FormControl.Label>
-                <Input placeholder="Name of the Dish" onChange={(e)=>{
-                  console.log(
-                    "onChange::",
-                    e.currentTarget.name,
-                    e.currentTarget.value
-                  );
-                  values.DishName = e.currentTarget.value;
-                }}
-                
-                />
-                {errors.DishName && touched.DishName ? (<Text>{errors.DishName}</Text>) : null}
-                </FormControl>
-
-               <FormControl isRequired>   
-                <FormControl.Label _text={{bold: true}}> Comment </FormControl.Label>
-
-                <TextArea placeholder="Type your comment inside." onChange={(e)=>{
-                  console.log(
-                    "onChange::",
-                    e.currentTarget.name,
-                    e.currentTarget.value
-                  );
-                  values.Comment = e.currentTarget.value;
-                }}
-                
-                />
-                  </FormControl>  
-
-                  <FormControl isRequired>
-                  <FormControl.Label _text={{bold: true}}> Dish Category </FormControl.Label>
-                    <Select selectedValue={DishCategory} minWidth="200" accessibilityLabel="Choose Service" placeholder="Choose Service" _selectedItem={{
-        bg: "teal.600",
-        endIcon: <CheckIcon size="5" />
-      }} mt={1} onValueChange={itemValue => setDishCategory(itemValue)}>
-        {categorydata.map(x => {
-            return (
-              <Select.Item
-                label={x.name}
-                value={x.name}
-              />
-            );
-          })}
-        </Select>
-                  </FormControl>
-
-                  <FormControl isRequired>
-                  <FormControl.Label _text={{bold: true}}> Price </FormControl.Label>
-                  <InputGroup w={{
-      base: "70%",
-      md: "285"
-    }}>
-        <InputLeftAddon children={"HK$"} />
-          <Input w={{base: "100%",md: "100%"}} placeholder="eg: 25.50"
-            onChange={(e)=>{
-                  console.log(
-                    "onChange::",
-                    e.currentTarget.name,
-                    e.currentTarget.value
-                  );
-                  values.Price = e.currentTarget.value;
-                }}
-       />
-      </InputGroup>
-                 </FormControl>
-                 <FormControl isRequired>
-                  <FormControl.Label _text={{bold: true}}> Rating(Maximum 5 Stars) </FormControl.Label>
-                  
-                  <StarRating
-                    rating={rating}
-                    onChange={(e)=>{setRating,
-                    console.log(
-                    "onChange::",
-                    e.currentTarget.name,
-                    e.currentTarget.value
-                  );
-                  values.Rating = e.currentTarget.value;
-                }}
-      />
-
-</FormControl>
+                  <View>
+                    
+                  </View>
                 <Button colorScheme="danger" onPress={handleReset}>Reset</Button>
                 <Button colorScheme="success" onPress={handleSubmit}> Submit</Button>
                </VStack>

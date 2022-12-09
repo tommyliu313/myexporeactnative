@@ -5,15 +5,17 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as Sharing from 'expo-sharing';
 import CheckHistoryScreen from '../subscreen/checkrecord';
+import {sendDataToFirebase, deletedatafromfirebase} from '../../data/database/firebaseconfig';
+
 const Stack = createNativeStackNavigator();
 
 const PopupWindow = () => {
   Alert.alert(
     "Attention!",
-    "Are you sure to delete account?",
+    "Are you sure to delete all information ?",
     [
-      {text: "Cancel", onPress:() => console.log("No need to delete account")},
-      {text: "Yes", onPress:() => console.log("Delete his account")}
+      {text: "Cancel", onPress:() => console.log("No need to delete data")},
+      {text: "Yes", onPress:() => console.log("Delete his data")}
     ]
   )
 }
@@ -24,7 +26,7 @@ function SettingScreen({navigation}){
   <NativeBaseProvider>
     <VStack space={3}>
   <Text style={style.titletext}>Irreversible Action</Text>
-  <Button onPress={() => PopupWindow()}> Delete Account </Button>
+  <Button onPress={() => PopupWindow()}> Delete Data </Button>
 
   <Text style={style.titletext}>Screen Action</Text>
   <Button colorScheme="danger" onPress={() => BackHandler.exitApp()}>Exit</Button>
