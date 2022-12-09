@@ -8,6 +8,7 @@ import * as React from 'react';
 import StarRating from 'react-native-star-rating-widget';
 import {useState} from 'react';
 import firebaseconfiguration from "../../data/database/firebaseconfig";
+import * as ImagePicker from 'expo-image-picker';
 
 const validateSchema = yup.object().shape({
   Comment: yup.string()
@@ -27,6 +28,7 @@ const validateSchema = yup.object().shape({
 });
 
 export default function CommentScreen({navigation,props}){
+  const [image, setImage] = useState(null);
   const [categorydata,setCategoryData] = useState([
     {name:'test1'},
     {name:'test2'}
@@ -148,7 +150,7 @@ export default function CommentScreen({navigation,props}){
 
 <FormControl isRequired>
                   <FormControl.Label _text={{bold: true}}> Media </FormControl.Label>
-                  
+
 
 </FormControl>
                 <Button colorScheme="danger" onPress={handleReset}>Reset</Button>

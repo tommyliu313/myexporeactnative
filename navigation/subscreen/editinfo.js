@@ -7,8 +7,8 @@ import Constants from 'expo-constants';
 import * as React from 'react';
 import StarRating from 'react-native-star-rating-widget';
 import {useFonts} from 'expo-font';
-import {useState} from 'react';
-import * as React from 'react';
+import {useState, useEffect} from 'react';
+import * as ImagePicker from 'expo-image-picker';
 
 
 const validateSchema = yup.object().shape({
@@ -29,7 +29,7 @@ const validateSchema = yup.object().shape({
 });
 
 export default function EditScreen({navigation,props}){
-  const [categorydata,setCategoryData] = useState([
+  const [Districtdata,setCategoryData] = useState([
     {name:'test1'},
     {name:'test2'}
   ])
@@ -37,7 +37,7 @@ export default function EditScreen({navigation,props}){
   const [RestaurantName,setRestaurantName] = useState("");
   const [rating, setRating] = useState(0);
 
- 
+    useEffect()
   return (
     <ScrollView>
     <NativeBaseProvider>

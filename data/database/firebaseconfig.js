@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {initializeApp} from 'firebase/app';
-import {getFirestore, setDoc, doc ,deleteDoc} from 'firebase/firestore';
+import {getFirestore, setDoc, doc ,deleteField, updateDoc} from 'firebase/firestore';
 
 export function firebaseconfiguration() {
   const firebaseConfig = {
@@ -19,10 +19,10 @@ export async function sendDataToFirebase(collection, document, content){
 
   await setDoc(doc(firestore,collection,document),content);
 }
-export async function deletedatafromfirebase(){
+export async function deletedatafromfirebase(collection, document,){
   const firestore = getFirestore();
 
-  await deleteDoc((firestore,collection,document))
+  await ((firestore,collection,document))
 }
 
 /*export async function sendDataToFirebase(){
@@ -35,6 +35,11 @@ export async function deletedatafromfirebase(){
 });
 }*/
 
-/*import { doc, deleteDoc } from "firebase/firestore";
+/*import { doc, updateDoc, deleteField } from "firebase/firestore";
 
-await deleteDoc(doc(db, "cities", "DC"));*/
+const cityRef = doc(db, 'cities', 'BJ');
+
+// Remove the 'capital' field from the document
+await updateDoc(cityRef, {
+    capital: deleteField()
+});*/

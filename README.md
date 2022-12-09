@@ -1,8 +1,8 @@
 # myexporeactnative
 
 # Capture
-| <img src="./capturepics/secondtrial/main.jpeg" width="200" > |
-<img src="./capturepics/secondtrial/setting.jpeg" width="200" >|
+ <img src="./capturepics/secondtrial/main.jpeg" width="200" > 
+<img src="./capturepics/secondtrial/setting.jpeg" width="200" >
 
 
 ## Reminder

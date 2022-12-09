@@ -5,9 +5,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import {faPencil,faTrash} from "@fortawesome/free-solid-svg-icons";
-import * as React from 'react';
 
-import AddCategoryScreen from './categoryadd';
+import EditScreen from './editinfo';
 const Stacker = createNativeStackNavigator();
 
 const PopupWindow = () => {
@@ -60,7 +59,7 @@ function InfoScreen({navigation}){
             <Heading size="md" ml="-1">
               Restaurant Name
             </Heading>
-             <Button onPress={() => navigation.navigate('')}>
+             <Button onPress={() => navigation.navigate('EditInfo')}>
               <FontAwesomeIcon icon={faPencil}/>
             </Button>
               <Button onPress={() => PopupWindow()}>
@@ -119,7 +118,7 @@ export default function RestaurantNavigation(){
   <NavigationContainer independent={true}>
       <Stacker.Navigator initialRouteName="InfoScreen" screenOptions={{headerShown: false}}>
         <Stacker.Screen name="InfoScreen" component={InfoScreen} />
-        <Stacker.Screen name="CategoryAdd" component={AddCategoryScreen} />
+        <Stacker.Screen name="EditInfo" component={EditScreen} />
       </Stacker.Navigator>
     </NavigationContainer>)
 }

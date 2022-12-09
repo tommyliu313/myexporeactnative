@@ -20,7 +20,9 @@ export default function VideoScreen() {
   const [MediaLibraryPermission, requestMediaLibraryPermission] = MediaLibrary.usePermissions();
   const [startRecording,setStartRecording] = useState(false);
   const [photopicture,setPhotopicture]= useState(false);
+  const [image, setImage] = useState(false);
   const [video, setVideo] = useState(false);
+  const [flashMode, setFlashMode] = useState(Camera.Constants.FlashMode.off);
 
 
 {/*useEffect(() => {
