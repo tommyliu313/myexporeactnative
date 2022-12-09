@@ -149,17 +149,6 @@ export default function CommentScreen({navigation,props}){
 <FormControl isRequired>
                   <FormControl.Label _text={{bold: true}}> Media </FormControl.Label>
                   
-                  <StarRating
-                    rating={rating}
-                    onChange={(e)=>{setRating,
-                    console.log(
-                    "onChange::",
-                    e.currentTarget.name,
-                    e.currentTarget.value
-                  );
-                  values.Media = e.currentTarget.value;
-                }}
-      />
 
 </FormControl>
                 <Button colorScheme="danger" onPress={handleReset}>Reset</Button>

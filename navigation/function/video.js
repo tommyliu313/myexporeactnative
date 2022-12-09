@@ -1,5 +1,5 @@
 import { Camera, CameraType } from 'expo-camera';
-//import {} from 'expo-av';
+import { Video } from 'expo-av';
 import * as React from 'react';
 import { Text, View, StyleSheet, Image, Button, Dimensions, TouchableOpacity} from 'react-native';
 import {useState, useEffect, useRef} from 'react';
@@ -13,7 +13,7 @@ export default function VideoScreen() {
 
   {/* Get Permission */}
   {/* Set Status whether there is boolean option */}
-  let cameraRef = useRef();
+  let cameraReference = useRef();
   const [type, setType] = useState(CameraType.back);
   const [CameraPermission, requestCameraPermission] = Camera.useCameraPermissions();
   const [MicrophonePermission, requestMicrophonePermission] = Camera.useMicrophonePermissions();
@@ -68,19 +68,21 @@ export default function VideoScreen() {
   function toggle() {
     setType(current => (current === CameraType.back ? CameraType.front : CameraType.back));
   }
-let takingphoto = () => {
-  let photosave = () =>{
+  function takephoto(){
     
-  }
+    let takingphoto = () => {
+    let photosave = () =>{
+    
+    }
 
-  let photoshare = () =>{
+    let photoshare = () =>{
 
-  }
-  let photodiscard = () =>{
+    }
+    let photodiscard = () =>{
 
-  }
-};
-
+    }
+};}
+function recordvideo(){
   let recordingvideo = () => {
     
     let videoquality = {
@@ -88,13 +90,18 @@ let takingphoto = () => {
       maxDuration: 3600,
       mute: false
     };
+
     let finishrecording = () => {
       setStartRecord(false);
-      
-
+      cameraReference.current.stopRecording();
     };
+  if(video){
+
+  }
   let videosave = () => {
-    
+    MediaLibrary.saveToLibraryAsync(video.uri).then(() => {
+      setVideo(undefined);
+    });
   }
 
   let videoshare = () => {
@@ -103,6 +110,7 @@ let takingphoto = () => {
   let videodiscard = () => {
 
   }}
+}
   {/* Function End */}
   return (
     <View style={styles.container}>
@@ -113,11 +121,11 @@ let takingphoto = () => {
             <FontAwesomeIcon icon={faCameraRotate} style={{fontSize: 32}} />
           </TouchableOpacity>
            {/*Capture button  */}
-          <TouchableOpacity style={styles.button} onPress={toggle}>
+          <TouchableOpacity style={styles.button} onPress={takephoto}>
             <FontAwesomeIcon icon={faCamera} style={{fontSize: 32}} />
           </TouchableOpacity>
           {/* record button */}
-          <TouchableOpacity style={styles.button} onPress={toggle}>
+          <TouchableOpacity style={styles.button} onPress={recordvideo}>
             <FontAwesomeIcon icon={faRecordVinyl} style={{fontSize: 32}} />
           </TouchableOpacity>
 

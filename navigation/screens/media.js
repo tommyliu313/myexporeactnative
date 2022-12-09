@@ -9,7 +9,7 @@
 function MediaScreen({navigation}){
     return (
        <View style={style.main}>
-      <Text> Do you</Text>
+      <Text> Video Recording</Text>
       <Button title="Video Recording?" onPress={() => navigation.navigate('Video')}/>
       </View>
     );

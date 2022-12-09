@@ -1,8 +1,8 @@
 import * as React from 'react';
 import {initializeApp} from 'firebase/app';
-import {getFirestore, setDoc, doc} from 'firebase/firestore';
+import {getFirestore, setDoc, doc ,deleteDoc} from 'firebase/firestore';
 
-export default function firebaseconfiguration() {
+export function firebaseconfiguration() {
   const firebaseConfig = {
     apiKey: "AIzaSyDsUzH0I9ADm2SHrZ1TzyETmrEPB1M-jrk",
     authDomain: "sigma-cortex-315405.firebaseapp.com",
@@ -12,14 +12,29 @@ export default function firebaseconfiguration() {
     messagingSenderId: "917558103826",
     appId: "1:917558103826:web:f00d31b49fecb8e2822dcb"
   }
-  initializeApp(firebaseConfig);
-  const sendDataToFirebase = async() => {
-    const firestore = getFirestore();
-
-    await setDoc(doc(firestore,"users","user_id"),{
-    phone: "96013307",
-    name:"asdsadcsc",
-    age: 127
-  });
-}}
+  initializeApp(firebaseConfig);}
   
+export async function sendDataToFirebase(collection, document, content){
+  const firestore = getFirestore();
+
+  await setDoc(doc(firestore,collection,document),content);
+}
+export async function deletedatafromfirebase(){
+  const firestore = getFirestore();
+
+  await deleteDoc((firestore,collection,document))
+}
+
+/*export async function sendDataToFirebase(){
+  const firestore = getFirestore();
+
+  await setDoc(doc(firestore,"users","user_id"),{
+  phone: "96013307",
+  name:"asdsadcsc",
+  age: 127
+});
+}*/
+
+/*import { doc, deleteDoc } from "firebase/firestore";
+
+await deleteDoc(doc(db, "cities", "DC"));*/
