@@ -43,12 +43,11 @@ export default function RestaurantAddScreen({navigation,props}){
       onSubmit={values => console.log(values)}>
          {({errors,values,handleReset,handleSubmit}) => (
               <VStack width="90%" mx="3" maxW="300px">
-                <Field>
+                <Field >
 
                 </Field>
                 <Button colorScheme="danger" onPress={handleReset}>Reset</Button>
                 <Button colorScheme="success" onPress={handleSubmit}> Submit</Button>
-           
               </VStack>
               )}
     

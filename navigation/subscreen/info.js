@@ -19,6 +19,7 @@ const PopupWindow = () => {
     ]
   )
 }
+
 function InfoScreen({navigation}){
   const [data,setData] = useState();
   return (

@@ -28,6 +28,7 @@ export async function deletedatafromfirebase(collection, document,){
 /* export async function uploadmediafiletofirebase(){
 
 } */
+
 /*export async function uploadtostorage(){
 
 }*/
