@@ -1,15 +1,16 @@
 import * as SQLite from 'expo-sqlite';
 import {dbName} from '../database/db';
+const db = SQLite.openDatabase(dbName);
 
 
-export function getrestaurantinfo(){
+export function updaterestaurantinfo(){
   console.log('getting restaurant information');
     db.transaction(tx => {
     tx.executeSql(
-      'SELECT * FROM Restaurant',
+      'UPDATE Restaurant SET WHERE id = ',
       [],
       (txObj, resultSet) =>{
-
+        console.log('Successfully Update a restaurant record')
       },
       (txObj, error) =>{
         console.log('Error: ', error);
@@ -18,16 +19,13 @@ export function getrestaurantinfo(){
   })
 }
 
-export function getcommentinfo(){
+export function updatecommentinfo(){
     console.log('getting comment information');
     db.transaction(tx => {
-    tx.executeSql('SELECT * FROM COMMENT',
+    tx.executeSql('UPDATE COMMENT SET WHERE',
     [],
     (txObj, resultSet) => {
-      for (let i = resultSet.rows.length - 1; i >= 0; i--) {
-        let row = resultSet.rows.item(i);
-        console.log(row.commentdetail);
-      }
+     console.log('Successfully Update a comment record')
     },
     (txObj,error) =>{
       console.log('Error:', error);

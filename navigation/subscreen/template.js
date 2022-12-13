@@ -9,13 +9,12 @@ import * as React from 'react';
 
 const Stacker = createNativeStackNavigator();
 
-function CheckHistoryScreen({navigation}){
+function Template({navigation}){
   const [data,setData] = useState();
   return (
     <NativeBaseProvider>
     <ScrollView>
       <VStack>
-
       <Box alignItems="center">
       <Box maxW="80" rounded="lg" overflow="hidden" borderColor="coolGray.200" borderWidth="1" _dark={{
       borderColor: "coolGray.600",
@@ -29,7 +28,7 @@ function CheckHistoryScreen({navigation}){
         <Box>
           <AspectRatio w="100%" ratio={16 / 9}>
             <Image source={{
-            uri: "https://www.holidify.com/images/cmsuploads/compressed/Bangalore_citycover_20190613234056.jpg"
+            uri: 
           }} alt="image" />
           </AspectRatio>
           <Center bg="violet.500" _dark={{

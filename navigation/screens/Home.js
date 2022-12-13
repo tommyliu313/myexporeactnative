@@ -1,21 +1,56 @@
-import { Text, View, StyleSheet, Image, ScrollView } from 'react-native';
+import { Text, View, StyleSheet, Image, ScrollView} from 'react-native';
 import {useState} from 'react';
-import { NativeBaseProvider, Button, VStack, Heading, Stack ,Center, Box, Pressable} from "native-base";
+import { NativeBaseProvider, Button, VStack, FormControl, Input, Modal, Box, Pressable} from "native-base";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import {faAdd,faChevronRight} from "@fortawesome/free-solid-svg-icons";
+import {faAdd,faChevronRight,faTrash} from "@fortawesome/free-solid-svg-icons";
 import * as React from 'react';
 import InfoScreen from '../subscreen/info';
-import AddCategoryScreen from '../subscreen/categoryadd';
+import AddCategoryScreen from '../record/categoryadd';
+import RestaurantAddScreen from '../record/restaurantadd';
+import CommentScreen from './Commentpage';
 
 const Stacker = createNativeStackNavigator();
+
+function deleteModal(){
+  const [modalVisible, setModalVisible] = useState(null);
+  return(
+    <NativeBaseProvider>
+    <Modal isOpen={modalVisible} onClose={() => setModalVisible(false)} justifyContent="flex-end" bottom="4" size="lg">
+    <Modal.Content>
+      <Modal.CloseButton />
+      <Modal.Header>Delete Which Restaurant Record?</Modal.Header>
+      <Modal.Body>
+        <FormControl mt="3">
+          <FormControl.Label>
+
+          </FormControl.Label>
+          <Input />
+        </FormControl>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button flex="1" onPress={() => {
+        setModalVisible(false);
+      }}>
+          Proceed
+        </Button>
+      </Modal.Footer>
+    </Modal.Content>
+  </Modal>
+  </NativeBaseProvider>
+  )
+}
+
 
 function HomeScreen({navigation}){
   const [source, setSource] = useState([
     {name: 'Restaurant', address: 'L2, MOSTown, Sai Sha Road, Ma On Shan, N.T.', photo: require('../../data/pics/test.jpg')},
     {name: 'Restaurant 2', address: 'L2, MOSTown, Sai Sha Road, Ma On Shan, N.T.',photo: require('../../data/pics/test.jpg')}]
   );
+  
+
+
   return (
     <ScrollView>
       <View style={style.main}>
@@ -30,20 +65,6 @@ function HomeScreen({navigation}){
 </VStack>
 </NativeBaseProvider>
   </View>
-      
-      {/*<ScrollView horizontal>
-      
-    <Image style={style.circle} source={require('../../download.jfif')}/>
-    <Image style={style.circle} source={require('../../download.jfif')}/>
-
-    <Image style={style.circle} source={require('../../download.jfif')}/>
- 
-    <Image style={style.circle} source={require('../../download.jfif')}/>
-    
-    <Image style={style.circle} source={require('../../download.jfif')}/>
-    
-    <Image style={style.circle} source={require('../../download.jfif')}/>
-    </ScrollView>*/}
    
     <View style={style.row}>
       <Text style={style.titletext}>Photo</Text>
@@ -65,8 +86,11 @@ function HomeScreen({navigation}){
       <View>
       <Text style={style.titletext}>Restaurant</Text>
       <NativeBaseProvider>
-        <Button leftIcon={<FontAwesomeIcon icon={faAdd} style={{fontSize: 32}} />} colorScheme="success">   Add</Button>
+        <Button leftIcon={<FontAwesomeIcon icon={faAdd} style={{fontSize: 32}} />} 
+        colorScheme="success" onPress={() => navigation.navigate('RestaurantAdd')}> Add</Button>
         <Button>See All</Button>
+        <Button leftIcon={<FontAwesomeIcon icon={faTrash} style={{fontSize: 32}} />} 
+        colorScheme="danger" onPress={() => deleteModal()}> Remove</Button>
         </NativeBaseProvider>
       
 
@@ -94,17 +118,24 @@ function HomeScreen({navigation}){
       </View>
       
       <NativeBaseProvider>
-      <Button onPress={() => navigation.navigate('CategoryAdd')}>
-      <FontAwesomeIcon icon={faAdd} style={{fontSize: 32}} />Add
-      </Button>
+      <Button leftIcon={<FontAwesomeIcon icon={faAdd} style={{fontSize: 32}} />} onPress={() => navigation.navigate('CategoryAdd')}>Add </Button>
       <Box>
-      <Button colorScheme="secondary"> 
-      
-      <FontAwesomeIcon icon={faChevronRight} style={{fontSize: 32}} />
+      <Button leftIcon={<FontAwesomeIcon icon={faChevronRight} style={{fontSize: 32}}/>}colorScheme="secondary"> 
       
       </Button>
       </Box>
       </NativeBaseProvider>
+
+      <View>
+      <Text style={style.titletext}>Comment</Text>
+      <NativeBaseProvider>
+        <Button leftIcon={<FontAwesomeIcon icon={faAdd} style={{fontSize: 32}} />} 
+        colorScheme="success" onPress={() => navigation.navigate('Comment')}> Add</Button>
+        <Button>See All</Button>
+        <Button leftIcon={<FontAwesomeIcon icon={faTrash} style={{fontSize: 32}} />} 
+        colorScheme="danger" onPress={() => deleteModal()}> Remove</Button>
+        </NativeBaseProvider>
+        </View>
        </View>
     </ScrollView>
     
@@ -113,10 +144,12 @@ function HomeScreen({navigation}){
 function HomeScreenInsideNavigation(){
   return(
   <NavigationContainer independent={true}>
-      <Stacker.Navigator initialRouteName="Home">
+      <Stacker.Navigator initialRouteName="Home" screenOptions={{headerShown: false}}>
         <Stacker.Screen name="Home" component={HomeScreen} />
         <Stacker.Screen name="Info" component={InfoScreen} />
         <Stacker.Screen name="CategoryAdd" component={AddCategoryScreen} />
+        <Stacker.Screen name="RestaurantAdd" component={RestaurantAddScreen} />
+        <Stacker.Screen name="Comment" component={CommentScreen} />
       </Stacker.Navigator>
     </NavigationContainer>)
 }

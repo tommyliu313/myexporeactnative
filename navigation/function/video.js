@@ -4,7 +4,7 @@ import * as React from 'react';
 import { Text, View, StyleSheet, Image, Button, Dimensions, TouchableOpacity} from 'react-native';
 import {useState, useEffect, useRef} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import {faCamera, faCameraRotate, faRecordVinyl} from "@fortawesome/free-solid-svg-icons";
+import {faCamera, faCameraRotate, faRecordVinyl,faBolt} from "@fortawesome/free-solid-svg-icons";
 import * as MediaLibrary from 'expo-media-library';
 import {ShareAsync} from 'expo-sharing';
 
@@ -13,7 +13,7 @@ export default function VideoScreen() {
 
   {/* Get Permission */}
   {/* Set Status whether there is boolean option */}
-  let cameraReference = useRef();
+  let cameraReference = useRef(null);
   const [type, setType] = useState(CameraType.back);
   const [CameraPermission, requestCameraPermission] = Camera.useCameraPermissions();
   const [MicrophonePermission, requestMicrophonePermission] = Camera.useMicrophonePermissions();
@@ -23,8 +23,6 @@ export default function VideoScreen() {
   const [image, setImage] = useState(false);
   const [video, setVideo] = useState(false);
   const [flashMode, setFlashMode] = useState(Camera.Constants.FlashMode.off);
-
-
 {/*useEffect(() => {
   (async () => {
     const 
@@ -50,7 +48,6 @@ export default function VideoScreen() {
     return(
       <View></View>
     )
-
   }
   if(!MicrophonePermission.granted){
     return(
@@ -59,7 +56,6 @@ export default function VideoScreen() {
         <Button onPress={requestMicrophonePermission} title="grant permission" />
       </View>
     )
-
   }
   */}
   {/* Condition End */}
@@ -67,52 +63,86 @@ export default function VideoScreen() {
 
   {/* Function Start */}
  
-  function toggle() {
+  const toggle =() => {
     setType(current => (current === CameraType.back ? CameraType.front : CameraType.back));
   }
-  function takephoto(){
-    
-    let takingphoto = () => {
-    let photosave = () =>{
-    
+  const takephoto =  async() => {
+    let options = {
+      quality: 1,
+      base64: true,
+      exif: false
+    };
+    let newimage = await cameraReference.current.takePictureAsync(options);
+    setImage(newimage);
+  }
+
+  if(image){
+    let photosave = async() =>{
+       await MediaLibrary.createAssetAsync(newImage);
+       setImage(null)
+      ;}
+    let photoshare = () => {
+      Sharing.shareAsync(photo.uri).then(() => {
+        setImage(undefined);
+    })
+    }
+    let photodiscard = () => {
+
     }
 
-    let photoshare = () =>{
+    return (
+      <Camera ref={Camera}>
+{MediaLibraryPermission ? <Button title="Save" onPress={photosave}></Button>: undefined}
+        <Button title="Share" onPress={photoshare}></Button>
+        <Button title="Discard" onPress={photodiscard}></Button>
+      </Camera>
 
+    )
     }
-    let photodiscard = () =>{
 
-    }
-};}
-function recordvideo(){
-  let recordingvideo = () => {
-    
+  const recordvideo = () => {   
     let videoquality = {
       quality: "1080p",
       maxDuration: 3600,
       mute: false
     };
 
-    let finishrecording = () => {
-      setStartRecord(false);
-      cameraReference.current.stopRecording();
-    };
-  if(video){
-
+    cameraReference.current.recordAsync(videoquality).then((recordedVideo) => {
+      setVideo(recordedVideo);
+      setStartRecording(false);
+    })
   }
+  const stopRecording = () => {
+      setStartRecording(false);
+      cameraReference.current.stopRecording();
+  };
+  if(video){
+  
   let videosave = () => {
     MediaLibrary.saveToLibraryAsync(video.uri).then(() => {
       setVideo(undefined);
     });
-  }
+  };
 
   let videoshare = () => {
-
-  }
+    Sharing.shareAsync(video.uri).then(() => {
+      setVideo(undefined);
+    })
+  };
   let videodiscard = () => {
+    setVideo(undefined);
+  };
 
-  }}
-}
+  return (
+    <Camera ref={cameraReference}>
+      {MediaLibraryPermission ?<Button title="Save" onPress={videosave}></Button>: undefined}
+      <Button title="Share" onPress={videoshare} />
+      <Button title="Discard" onPress={videodiscard} />
+      </Camera>
+  );
+  }
+  
+
   {/* Function End */}
   return (
     <View style={styles.container}>
@@ -129,6 +159,9 @@ function recordvideo(){
           {/* record button */}
           <TouchableOpacity style={styles.button} onPress={recordvideo}>
             <FontAwesomeIcon icon={faRecordVinyl} style={{fontSize: 32}} />
+          </TouchableOpacity>
+          <TouchableOpacity>
+
           </TouchableOpacity>
 
         </View>
@@ -166,4 +199,4 @@ const styles = StyleSheet.create({
     flexDirection: 'wrap'
   },
 
-});
+})

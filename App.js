@@ -4,12 +4,16 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 import {NativeBaseProvider,Button, VStack} from 'native-base';
 import MainContainer from'./navigation/MainContainer';
-
+import {useEffect} from 'react';
+import createTable from './data/database/createtable';
+import { enableScreens } from 'react-native-screens';
+enableScreens();
 const Stack = createNativeStackNavigator();
 const asset = [require('./assets/restaurant.jpg')];
 
  function MainScreen({navigation}){
-  
+
+
   return(
   <View style={styles.container}>
 
@@ -32,15 +36,19 @@ const asset = [require('./assets/restaurant.jpg')];
   </View>
 )}
 
-function MainNavigation(){
+export default function MainNavigation(){
+
+  useEffect(() => {
+    createTable()
+  }, [])
+
   return(
   <NavigationContainer independent={true}>
       <Stack.Navigator initialRouteName="Main" screenOptions={{headerShown: false}} >
         <Stack.Screen name="Main" component={MainScreen} />
         <Stack.Screen name="MainContainer" component={MainContainer}/>
       </Stack.Navigator>
-    </NavigationContainer>)
-}
+    </NavigationContainer>);}
 
 const styles = StyleSheet.create({
   container: {
@@ -58,7 +66,4 @@ const styles = StyleSheet.create({
     textAlign: "center",
     backgroundColor: "#000000"
   }
-});
-
-export default MainNavigation;
-
+})

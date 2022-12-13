@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Text, View, StyleSheet, ScrollView } from 'react-native';
 import Constants from 'expo-constants';
 import * as Location from 'expo-location';
-import MapView from 'react-native-maps';
+import MapView, {Marker} from 'react-native-maps';
 import { useEffect, useState} from 'react';
 import {Button, NativeBaseProvider, Alert} from 'native-base';
 
@@ -10,15 +10,18 @@ import {Button, NativeBaseProvider, Alert} from 'native-base';
 
 export default function LocationScreen() {
   {/* Initial Settings */}
-   const [location, setLocation] = useState({ latitude:  22.302711,
-          longitude: 114.177216,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421});
+   const [location, setLocation] = useState({ latitude:'',
+          longitude: '',
+          latitudeDelta: '',
+          longitudeDelta: ''});
   {/* Set Status whether there is boolean option */}
    {/*const [,pinlocation]= useState('');*/}
    const [yourlocation,setYourlocation] = useState(null);
-   useEffect(() => {
-     (async () => {
+   const [anywhere,setAnyWhere] = useState(
+    {latitude: '', longitude:''}
+   )
+  
+   const getlocationPermissionnow = async() =>{
        {/*get permission */}
       let {getcurrentstatuspermission} = await Location.requestForegroundPermissionsAsync();
       if (getcurrentstatuspermission !== 'granted') {
@@ -29,9 +32,8 @@ export default function LocationScreen() {
         )
       }
         let yourlocation = await Location.getCurrentPositionAsync({});
-        setYourlocation(yourlocation);})
-     })
-
+        setYourlocation(yourlocation);
+}
   return (<ScrollView>
     <View style={styles.container}>
     
@@ -49,7 +51,8 @@ export default function LocationScreen() {
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421
          }}
-         
+         showsUserLocation={true}
+         showsMyLocationButton={true}
         >
       
       </MapView>
@@ -57,7 +60,7 @@ export default function LocationScreen() {
       <View><Text>Latitude: {location.latitude}</Text></View>
       <View><Text>Longtitude: {location.longitude}</Text></View>
         <NativeBaseProvider>
-        <Button onPress={() => setYourlocation()}> Navigate </Button>
+        <Button onPress={() => getlocationPermissionnow()}> Allow GPS Location Permission </Button>
         <Button> Ok </Button>
          </NativeBaseProvider>
     </View>

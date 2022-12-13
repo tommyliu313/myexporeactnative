@@ -1,15 +1,21 @@
 import { Text, View, StyleSheet, ScrollView, Image, Alert, BackHandler} from 'react-native';
 import React from "react";
-import {NativeBaseProvider,Button, VStack} from 'native-base';
+import {NativeBaseProvider,Button, VStack, HStack} from 'native-base';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as Sharing from 'expo-sharing';
-import CheckHistoryScreen from '../subscreen/checkrecord';
-import {sendDataToFirebase, deletedatafromfirebase} from '../../data/database/firebaseconfig';
+import CheckHistoryScreen from '../record/checkrecord';
+import {useState, useEffect} from 'react';
+import {deleteAllRestaurantData, deleteAllCommentData} from '../../data/record/remove';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import {faFacebook,faInstagram,faTwitter} from '@fortawesome/free-brands-svg-icons';
+import * as Linking from 'expo-linking';
+
 
 const Stack = createNativeStackNavigator();
 
 const PopupWindow = () => {
+
   Alert.alert(
     "Attention!",
     "Are you sure to delete all information ?",
@@ -20,7 +26,10 @@ const PopupWindow = () => {
   )
 }
 
+
 function SettingScreen({navigation}){
+
+
   return(
   <View style={style.main}>
   <NativeBaseProvider>
@@ -35,6 +44,13 @@ function SettingScreen({navigation}){
    <Button onPress={() => navigation.navigate('Check History')}>Check History</Button>
    
    <Button onPress={() => setShare()}> Sharing the App Out</Button>
+
+   <Text style={style.titletext}>Social Media</Text>
+    <HStack space={1}>
+    <Button onPress={() => Linking.openURL('https://www.facebook.com')}><FontAwesomeIcon icon={faFacebook} size="90"/></Button>
+    <Button onPress={() => Linking.openURL('https://www.instagram.com')}><FontAwesomeIcon icon={faInstagram} size="90"/></Button>
+    <Button onPress={() => Linking.openURL('https://www.twitter.com')}><FontAwesomeIcon icon={faTwitter} size="90"/></Button>
+    </HStack>
    </VStack>
     </NativeBaseProvider>
   

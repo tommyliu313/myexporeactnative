@@ -1,13 +1,16 @@
-import { Text, View, StyleSheet, Image, ScrollView,Alert } from 'react-native';
-import {useState} from 'react';
-import { NativeBaseProvider, Button,HStack, VStack, Heading, Stack ,Center, Box,Container,AspectRatio} from "native-base";
+import { Text, View, StyleSheet, Image, ScrollView,Alert, } from 'react-native';
+import {useState,useEffect} from 'react';
+import { NativeBaseProvider, Button,HStack, VStack, 
+  Heading, Stack ,Center, Box,Container,AspectRatio, Modal} from "native-base";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import {faPencil,faTrash} from "@fortawesome/free-solid-svg-icons";
+import {faPencil,faTrash,faPhone} from "@fortawesome/free-solid-svg-icons";
+import HomeScreen from '../screens/Home';
+import * as Linking from 'expo-linking';
 
-import EditScreen from './editinfo';
 const Stacker = createNativeStackNavigator();
+
 
 const PopupWindow = () => {
   Alert.alert(
@@ -20,17 +23,37 @@ const PopupWindow = () => {
   )
 }
 
+
+
 function InfoScreen({navigation}){
   const [data,setData] = useState();
+  const [showEditModal, setShowEditModal] = useState(false);
+  
+  const EditModal = () =>{
+  return(
+    <NativeBaseProvider>
+    <Modal isOpen={showEditModal} onClose={() => setShowEditModal(false)}>
+      <Modal.Content>
+        <Modal.CloseButton></Modal.CloseButton>
+        <Modal.Header>123</Modal.Header>
+        <Modal.Body>123</Modal.Body>
+      </Modal.Content>
+
+    </Modal>
+    </NativeBaseProvider>
+  )}
+  useEffect(() =>{
+    EditModal();
+  })
   return (
     <NativeBaseProvider>
     <ScrollView>
       <VStack>
 
       <Box alignItems="center">
-      <Box maxW="100%" rounded="lg" overflow="hidden" borderColor="coolGray.200" borderWidth="1" _dark={{
-      borderColor: "coolGray.600",
-      backgroundColor: "gray.700"
+      <Box maxW="100%" rounded="lg" overflow="hidden" borderColor="warning.200" borderWidth="1" _dark={{
+      borderColor: "yellow.600",
+      backgroundColor: "emerald.500"
     }} _web={{
       shadow: 2,
       borderWidth: 0
@@ -43,15 +66,6 @@ function InfoScreen({navigation}){
             uri: "https://www.holidify.com/images/cmsuploads/compressed/Bangalore_citycover_20190613234056.jpg"
           }} alt="image" />
           </AspectRatio>
-          <Center bg="violet.500" _dark={{
-          bg: "violet.400"
-        }} _text={{
-          color: "warmGray.50",
-          fontWeight: "700",
-          fontSize: "xs"
-        }} position="absolute" bottom="0" px="3" py="1.5">
-            PHOTOS
-          </Center>
         </Box>
         <Stack p="4" space={3}>
           <Stack space={2}>
@@ -60,7 +74,7 @@ function InfoScreen({navigation}){
             <Heading size="md" ml="-1">
               Restaurant Name
             </Heading>
-             <Button onPress={() => navigation.navigate('EditInfo')}>
+             <Button onPress={() => setShowEditModal(true)}>
               <FontAwesomeIcon icon={faPencil}/>
             </Button>
               <Button onPress={() => PopupWindow()}>
@@ -69,9 +83,7 @@ function InfoScreen({navigation}){
             </HStack>
             </VStack>
             <Container>
-              <Heading>
-                Address
-              </Heading>
+              <Heading>Address</Heading>
             <Text fontSize="xs" _light={{
             color: "violet.500"
           }} _dark={{
@@ -91,35 +103,67 @@ function InfoScreen({navigation}){
           </Container>
           <Container>
               <Heading>
+             Region - District
+              </Heading>
+          <Text fontWeight="400">
+            
+          </Text>
+          </Container>
+          <Container>
+              <Heading>
+                Dishes
+              </Heading>
+              <ScrollView horizontal>
+                <Image></Image>
+          <Text fontWeight="400">
+            
+          </Text>
+          </ScrollView>
+          </Container>
+          <Container>
+              <Heading>
+              Contact
+              </Heading>
+          <Text fontWeight="400">
+            Telephone 1
+          </Text>
+          <Button onPress={() => Linking.openURL('tel://+85296013307')}>
+            <FontAwesomeIcon icon={faPhone}/>
+            </Button>
+          <Text fontWeight="400">
+            Telephone 2
+          </Text>
+          </Container>
+          <Container>
+              <Heading>
                 Media
               </Heading>
+            <ScrollView>
 
+            </ScrollView>
 
               </Container>
           <HStack alignItems="center" space={4} justifyContent="space-between">
-            <HStack alignItems="center">
-              <Text color="coolGray.600" _dark={{
-              color: "warmGray.200"
-            }} fontWeight="400">
-                6 mins ago
-              </Text>
-            </HStack>
+            <Button colorScheme="primary" onPress={() => navigation.navigate('Home')}> Back </Button>
           </HStack>
         </Stack>
       </Box>
     </Box>
+    
       </VStack>
-      <Button onPress={() => navigation.goBack()}> Back </Button>
+      
     </ScrollView>
   </NativeBaseProvider>
   )
 }
+
 export default function RestaurantNavigation(){
   return(
   <NavigationContainer independent={true}>
       <Stacker.Navigator initialRouteName="InfoScreen" screenOptions={{headerShown: false}}>
+
         <Stacker.Screen name="InfoScreen" component={InfoScreen} />
-        <Stacker.Screen name="EditInfo" component={EditScreen} />
+        <Stacker.Screen name="Home" component={HomeScreen} />
       </Stacker.Navigator>
     </NavigationContainer>)
 }
