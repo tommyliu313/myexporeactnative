@@ -1,7 +1,7 @@
-import { Text, View, StyleSheet, Image, ScrollView,Alert, } from 'react-native';
+import { Text, View, StyleSheet, Image, ScrollView,Alert } from 'react-native';
 import {useState,useEffect} from 'react';
 import { NativeBaseProvider, Button,HStack, VStack, 
-  Heading, Stack ,Center, Box,Container,AspectRatio, Modal} from "native-base";
+  Heading, Stack ,Center, Box,Container,AspectRatio, Modal,Input,Select} from "native-base";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
@@ -29,22 +29,7 @@ function InfoScreen({navigation}){
   const [data,setData] = useState();
   const [showEditModal, setShowEditModal] = useState(false);
   
-  const EditModal = () =>{
-  return(
-    <NativeBaseProvider>
-    <Modal isOpen={showEditModal} onClose={() => setShowEditModal(false)}>
-      <Modal.Content>
-        <Modal.CloseButton></Modal.CloseButton>
-        <Modal.Header>123</Modal.Header>
-        <Modal.Body>123</Modal.Body>
-      </Modal.Content>
-
-    </Modal>
-    </NativeBaseProvider>
-  )}
-  useEffect(() =>{
-    EditModal();
-  })
+  
   return (
     <NativeBaseProvider>
     <ScrollView>
@@ -74,6 +59,36 @@ function InfoScreen({navigation}){
             <Heading size="md" ml="-1">
               Restaurant Name
             </Heading>
+            <NativeBaseProvider>
+    <Modal isOpen={showEditModal} onClose={() => setShowEditModal(false)}>
+      <Modal.Content maxWidth="350">
+        <Modal.CloseButton></Modal.CloseButton>
+        <Modal.Header>Update</Modal.Header>
+        <Modal.Body>
+        <VStack space={3}>
+              <HStack alignItems="center" justifyContent="space-between">
+                <Text fontWeight="medium">Column</Text>
+                <Select minWidth="80%">
+                  <Select.Item label="1" value="1"/>
+                  <Select.Item label="2" value="2"/>
+                  <Select.Item label="3" value="3"/>
+                </Select>
+              </HStack>
+              <HStack alignItems="center" justifyContent="space-between">
+                <Text fontWeight="medium">Value</Text>
+                <Input w="80%"/>
+              </HStack>
+              <HStack alignItems="center" justifyContent="space-between">
+                <Text fontWeight="medium">Options</Text>
+                <Button colorScheme="danger">Reset</Button>
+                <Button colorScheme="success">Submit</Button>
+              </HStack>
+            </VStack>
+        </Modal.Body>
+      </Modal.Content>
+
+    </Modal>
+    </NativeBaseProvider>
              <Button onPress={() => setShowEditModal(true)}>
               <FontAwesomeIcon icon={faPencil}/>
             </Button>
@@ -122,7 +137,7 @@ function InfoScreen({navigation}){
           </Container>
           <Container>
               <Heading>
-              Contact
+        Contact
               </Heading>
           <Text fontWeight="400">
             Telephone 1

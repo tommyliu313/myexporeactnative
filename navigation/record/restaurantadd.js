@@ -44,7 +44,7 @@ export default function RestaurantAddScreen({navigation,props}){
 
 
   const [RegionDistrict, setRegionDistrict] = useState("");
-  const [District,setDistrict] = useState('');
+  const [RegionSelect,setRegionSelect] = useState('');
 
   return (
     <ScrollView>
@@ -61,7 +61,8 @@ export default function RestaurantAddScreen({navigation,props}){
                   <FormControl.Label _text={{bold: true}}> RegionDistrict </FormControl.Label>
                     <Select selectedValue={RegionDistrict} minWidth="200" accessibilityLabel="Choose Region-District" placeholder="Choose Region-District"
                     _selectedItem={{bg: "teal.600", endIcon: <CheckIcon size="5" />}} mt={1} 
-                    onValueChange={itemValue => setRegionSelect(itemValue)}>
+                    onValueChange={(item) => [props.handleChange('RegionDistrict'), setLocationSelect(item)]}
+                    value={props.values.RegionDistrict}>
                       {LocationSelect.map(x => {
                          return (
                            <Select.Item
@@ -83,6 +84,7 @@ export default function RestaurantAddScreen({navigation,props}){
                   </View>
                 <Button colorScheme="danger" onPress={props.handleReset}>Reset</Button>
                 <Button colorScheme="success" onPress={props.handleSubmit}> Add</Button>
+                <Button colorScheme="primary" onPress={() => navigation.navigate('Home')}> Back </Button>
                </VStack>
               
               )}

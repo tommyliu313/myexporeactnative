@@ -56,7 +56,9 @@ export default function CommentScreen({navigation,props}){
   ]);
   const [pickPermission, requestPickPermission] = ImagePicker.useCameraPermissions();
   
-  const takephoto = async()=>{};
+  const takephoto = async()=>{
+    //let result = await 
+  };
 
   const takevideo = async()=>{
   };
@@ -101,7 +103,8 @@ export default function CommentScreen({navigation,props}){
 
                   <FormControl isRequired>
                   <FormControl.Label _text={{bold: true}}> Restaurant Name </FormControl.Label>
-                    <Select selectedValue={RestaurantNameList.selected} minWidth="200" accessibilityLabel="Choose Restaurant" placeholder="Choose Restaurant"
+                    <Select
+                    selectedValue={RestaurantNameList.selected} minWidth="200" accessibilityLabel="Choose Restaurant" placeholder="Choose Restaurant"
                     _selectedItem={{bg: "teal.600", endIcon: <CheckIcon size="5" />}} mt={1} 
                     onValueChange={itemValue => setRestaurantName(itemValue)}>
                       {RestaurantNameList.map(x => {
@@ -119,7 +122,10 @@ export default function CommentScreen({navigation,props}){
 
                 <FormControl isRequired>
                 <FormControl.Label _text={{bold: true}}>Dish Name </FormControl.Label>
-                <Input placeholder="Name of the Dish" value={props.values.DishName}       />
+                <Input placeholder="Name of the Dish"
+                  value={props.values.DishName}
+                  onChangeText={props.handleChange('DishName')}
+                  />
                 {props.errors.DishName && props.touched.DishName ? (<Text highlight _ dark={{ color: "emerald" }}>{props.errors.DishName}</Text>) : null}
                 </FormControl>
 
@@ -127,7 +133,8 @@ export default function CommentScreen({navigation,props}){
                 <FormControl.Label _text={{bold: true}}> Comment </FormControl.Label>
 
                 <TextArea placeholder="Type your comment inside." 
-                value={props.values.Comment}                
+                  value={props.values.Comment}
+                  onChangeText={props.handleChange('Comment')}
                 />
                 {props.errors.Comment && props.touched.Comment ? (<Text highlight _ dark={{ color: "emerald" }}>{props.errors.Comment}</Text>) : null}
                   </FormControl>  
@@ -159,6 +166,7 @@ export default function CommentScreen({navigation,props}){
         <InputLeftAddon children={"HK$"} />
           <Input w={{base: "100%",md: "100%"}} placeholder="eg: 25.50"
            values={props.values.Price}
+           onChangeText={props.handleChange('Price')}
        />
       </InputGroup>
       {props.errors.Price && props.touched.Price ? (<Text highlight _ dark={{ color: "emerald" }}>{props.errors.Price}</Text>) : null}
@@ -175,7 +183,7 @@ export default function CommentScreen({navigation,props}){
                   );
                   values.Rating = e.currentTarget;
                 }}
-      />
+                  />
 
 </FormControl>
 

@@ -4,10 +4,14 @@ import { StyleSheet, Button, TextInput, View, FlatList } from 'react-native';
 import getrestaurantinfo from '../../data/record/show';
 import { useEffect } from 'react';
 export default function ShowallrecordScreen(){
+    const renderItemWay = ({item, index}) => {
+
+    }
     useEffect(() =>{
         getrestaurantinfo()
     },[]
     );
+    
     return(
         <FlatList>
             
